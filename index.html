@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kafetani — Farm to Table Cafe & Market</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#F7F3EC;
+  --cream2:#EFE8D9;
+  --brown:#3B2A1A;
+  --brown2:#6B4C30;
+  --green:#2D5016;
+  --green2:#4A7C23;
+  --green3:#7BAD45;
+  --green-light:#EAF0DC;
+  --amber:#C8883A;
+  --amber-light:#F5ECD8;
+  --text:#2A1F12;
+  --text-mid:#7A6550;
+  --text-light:#A9967E;
+  --border:#D9CEBC;
+  --ff-display:'Cormorant Garamond',serif;
+  --ff-body:'DM Sans',sans-serif;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:var(--ff-body);font-weight:400;line-height:1.6;min-height:100vh}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px}
+.nav-logo{font-family:var(--ff-display);font-size:1.6rem;font-weight:600;color:var(--green);letter-spacing:-0.02em;cursor:pointer}
+.nav-logo span{color:var(--amber);font-style:italic}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-link{font-size:.85rem;font-weight:300;color:var(--text-mid);cursor:pointer;letter-spacing:.04em;text-transform:uppercase;transition:color .2s;border:none;background:none;font-family:var(--ff-body)}
+.nav-link:hover,.nav-link.active{color:var(--green)}
+.nav-cart{display:flex;align-items:center;gap:.4rem;background:var(--green);color:#fff;border:none;padding:.45rem 1rem;font-family:var(--ff-body);font-size:.8rem;font-weight:500;cursor:pointer;letter-spacing:.04em;position:relative;transition:background .2s}
+.nav-cart:hover{background:var(--green2)}
+.cart-badge{background:var(--amber);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:500}
+
+/* PAGES */
+.page{display:none;padding-top:60px;min-height:100vh;animation:fadeUp .4s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ HOME PAGE ══ */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 60px)}
+.hero-left{padding:5rem 3rem 4rem 3.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+.hero-tag{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-light);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.hero-tag::before{content:'';width:28px;height:1px;background:var(--text-light)}
+.hero-title{font-family:var(--ff-display);font-size:4.2rem;line-height:1.05;font-weight:300;color:var(--brown);margin-bottom:1.4rem}
+.hero-title em{font-style:italic;color:var(--green)}
+.hero-desc{font-size:.95rem;color:var(--text-mid);line-height:1.8;max-width:400px;margin-bottom:2.5rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--green);color:#fff;border:none;padding:.75rem 1.8rem;font-family:var(--ff-body);font-size:.85rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s}
+.btn-primary:hover{background:var(--green2)}
+.btn-outline{background:transparent;color:var(--brown);border:1px solid var(--brown);padding:.75rem 1.8rem;font-family:var(--ff-body);font-size:.85rem;cursor:pointer;letter-spacing:.04em;transition:all .2s}
+.btn-outline:hover{background:var(--brown);color:#fff}
+.hero-right{background:var(--green);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-pattern{position:absolute;inset:0;opacity:.07}
+.hero-visual{position:relative;z-index:1;text-align:center;padding:3rem}
+.hero-circle{width:260px;height:260px;border-radius:50%;background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 2rem;border:1px solid rgba(255,255,255,.15)}
+.hero-circle-icon{font-size:3.5rem;margin-bottom:.5rem}
+.hero-circle-label{font-family:var(--ff-display);font-size:1.4rem;font-weight:300;color:var(--brown)}
+.hero-pills{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+.hero-pill{background:rgba(255,255,255,.12);color:#fff;padding:.35rem .9rem;font-size:.78rem;border:1px solid rgba(255,255,255,.2);letter-spacing:.04em}
+
+.home-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{padding:2rem;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:var(--ff-display);font-size:2.8rem;font-weight:300;color:var(--green);display:block}
+.stat-label{font-size:.8rem;color:var(--text-light);letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem}
+
+.home-section{padding:4rem 3.5rem}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2rem}
+.section-title{font-family:var(--ff-display);font-size:2.2rem;font-weight:300;color:var(--brown)}
+.section-link{font-size:.8rem;color:var(--green);cursor:pointer;letter-spacing:.04em;text-decoration:underline;background:none;border:none;font-family:var(--ff-body)}
+
+.featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.feat-card{background:#fff;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.feat-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,80,22,.1)}
+.feat-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.feat-thumb-cafe{background:var(--amber-light)}
+.feat-thumb-market{background:var(--green-light)}
+.feat-body{padding:1.1rem}
+.feat-tag{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:.4rem}
+.feat-name{font-family:var(--ff-display);font-size:1.2rem;font-weight:400;color:var(--brown);margin-bottom:.3rem}
+.feat-price{font-size:.9rem;color:var(--green);font-weight:500}
+
+/* ══ MENU PAGE ══ */
+.page-header{background:var(--green);color:#fff;padding:3.5rem 3.5rem 2.5rem;position:relative;overflow:hidden}
+.page-header::after{content:'';position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;border:1px solid rgba(255,255,255,.08)}
+.page-header::before{content:'';position:absolute;right:60px;bottom:-80px;width:160px;height:160px;border-radius:50%;border:1px solid rgba(255,255,255,.06)}
+.page-header-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:.8rem}
+.page-header-title{font-family:var(--ff-display);font-size:3rem;font-weight:300;line-height:1.1;margin-bottom:.6rem}
+.page-header-sub{font-size:.9rem;opacity:.7;font-weight:300}
+
+.filter-bar{background:#fff;border-bottom:1px solid var(--border);padding:0 3.5rem;display:flex;gap:0;overflow-x:auto}
+.filter-tab{padding:.9rem 1.4rem;font-size:.82rem;cursor:pointer;color:var(--text-mid);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--ff-body);letter-spacing:.02em}
+.filter-tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:500}
+.filter-tab:hover{color:var(--green)}
+
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;padding:2.5rem 3.5rem}
+.product-card{background:#fff;border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative}
+.product-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(45,80,22,.1)}
+.product-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:var(--cream2)}
+.product-thumb.green{background:var(--green-light)}
+.product-body{padding:1rem}
+.product-cat{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:.3rem}
+.product-name{font-family:var(--ff-display);font-size:1.1rem;font-weight:400;color:var(--brown);margin-bottom:.2rem}
+.product-desc{font-size:.78rem;color:var(--text-light);line-height:1.5;margin-bottom:.8rem}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:.95rem;color:var(--green);font-weight:500}
+.add-btn{background:var(--green);color:#fff;border:none;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;transition:background .2s;flex-shrink:0}
+.add-btn:hover{background:var(--green2)}
+.add-btn.added{background:var(--amber)}
+
+/* ══ MARKET PAGE ══ */
+.market-layout{display:grid;grid-template-columns:260px 1fr}
+.market-sidebar{background:#fff;border-right:1px solid var(--border);padding:2rem;min-height:calc(100vh - 60px - 140px)}
+.sidebar-title{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-light);margin-bottom:1rem}
+.farmer-card{display:flex;align-items:center;gap:.8rem;padding:.8rem;border:1px solid transparent;cursor:pointer;transition:all .2s;margin-bottom:.5rem}
+.farmer-card:hover,.farmer-card.active{background:var(--green-light);border-color:var(--border)}
+.farmer-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.farmer-avatar.a1{background:#FDE8D8}
+.farmer-avatar.a2{background:#DFF2E1}
+.farmer-avatar.a3{background:#E8E3F8}
+.farmer-info-name{font-size:.9rem;font-weight:500;color:var(--brown)}
+.farmer-info-loc{font-size:.75rem;color:var(--text-light)}
+.market-products{padding:2rem 2.5rem}
+.market-banner{background:var(--green);color:#fff;padding:1.5rem 2rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between}
+.market-banner-text h3{font-family:var(--ff-display);font-size:1.5rem;font-weight:300;margin-bottom:.2rem}
+.market-banner-text p{font-size:.82rem;opacity:.75;font-weight:300}
+.market-banner-icon{font-size:2.5rem;opacity:.6}
+.market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.2rem}
+
+/* ══ CART PANEL ══ */
+.cart-overlay{position:fixed;inset:0;background:rgba(42,31,18,.4);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-panel{position:fixed;right:0;top:0;bottom:0;width:380px;background:var(--cream);z-index:201;transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.cart-panel.open{transform:translateX(0)}
+.cart-top{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-top h2{font-family:var(--ff-display);font-size:1.6rem;font-weight:300}
+.cart-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-mid);padding:.2rem}
+.cart-items{flex:1;overflow-y:auto;padding:1.2rem}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--text-light)}
+.cart-empty-icon{font-size:3rem;margin-bottom:1rem}
+.cart-empty p{font-size:.9rem}
+.cart-item{display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border)}
+.cart-item-icon{width:48px;height:48px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:.9rem;font-weight:500;color:var(--brown);margin-bottom:.2rem}
+.cart-item-price{font-size:.82rem;color:var(--green)}
+.cart-item-qty{display:flex;align-items:center;gap:.6rem;margin-top:.5rem}
+.qty-btn{width:24px;height:24px;border:1px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--text-mid);transition:all .2s}
+.qty-btn:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.qty-num{font-size:.85rem;font-weight:500;min-width:16px;text-align:center}
+.cart-remove{background:none;border:none;color:var(--text-light);cursor:pointer;font-size:.75rem;align-self:flex-start}
+.cart-remove:hover{color:#c0392b}
+.cart-bottom{padding:1.5rem;border-top:1px solid var(--border)}
+.cart-row{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.6rem;color:var(--text-mid)}
+.cart-total{display:flex;justify-content:space-between;font-size:1rem;font-weight:500;color:var(--brown);margin:1rem 0}
+.checkout-btn{width:100%;background:var(--green);color:#fff;border:none;padding:.9rem;font-family:var(--ff-body);font-size:.9rem;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:background .2s}
+.checkout-btn:hover{background:var(--green2)}
+
+/* ══ ORDER SUCCESS ══ */
+.order-success{display:none;position:fixed;inset:0;background:rgba(42,31,18,.5);z-index:300;align-items:center;justify-content:center}
+.order-success.show{display:flex}
+.success-box{background:var(--cream);padding:3rem;max-width:420px;width:90%;text-align:center}
+.success-icon{font-size:3rem;margin-bottom:1rem}
+.success-title{font-family:var(--ff-display);font-size:2rem;font-weight:300;color:var(--green);margin-bottom:.6rem}
+.success-text{font-size:.9rem;color:var(--text-mid);margin-bottom:2rem;line-height:1.7}
+.success-close{background:var(--green);color:#fff;border:none;padding:.8rem 2rem;font-family:var(--ff-body);font-size:.9rem;cursor:pointer;width:100%;transition:background .2s}
+.success-close:hover{background:var(--green2)}
+
+/* toast */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--brown);color:#fff;padding:.7rem 1.4rem;font-size:.82rem;z-index:400;transition:transform .3s;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="goTo('home')">Kafe<span>tani</span></div>
+  <div class="nav-links">
+    <button class="nav-link active" id="nl-home" onclick="goTo('home')">Beranda</button>
+    <button class="nav-link" id="nl-menu" onclick="goTo('menu')">Menu Kafe</button>
+    <button class="nav-link" id="nl-market" onclick="goTo('market')">Marketplace</button>
+  </div>
+  <button class="nav-cart" onclick="openCart()">
+    🛒 Keranjang <span class="cart-badge" id="cart-badge">0</span>
+  </button>
+</nav>
+
+<!-- ══ HOME PAGE ══ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Farm to Table · Sejak Panen</div>
+      <h1 class="hero-title">Dari <em>ladang</em><br>ke cangkirmu</h1>
+      <p class="hero-desc">Kafetani menghubungkan petani lokal langsung ke meja kamu — kopi, bakeri, dan bahan segar pilihan tanpa perantara.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="goTo('menu')">Pesan Sekarang</button>
+        <button class="btn-outline" onclick="goTo('market')">Lihat Marketplace</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <svg class="hero-pattern" viewBox="0 0 500 600" fill="none">
+        <circle cx="250" cy="300" r="200" stroke="white" stroke-width="1"/>
+        <circle cx="250" cy="300" r="150" stroke="white" stroke-width="0.5"/>
+        <circle cx="250" cy="300" r="100" stroke="white" stroke-width="0.5"/>
+        <line x1="50" y1="300" x2="450" y2="300" stroke="white" stroke-width="0.5"/>
+        <line x1="250" y1="100" x2="250" y2="500" stroke="white" stroke-width="0.5"/>
+        <line x1="109" y1="159" x2="391" y2="441" stroke="white" stroke-width="0.4"/>
+        <line x1="391" y1="159" x2="109" y2="441" stroke="white" stroke-width="0.4"/>
+      </svg>
+      <div class="hero-visual">
+        <div class="hero-circle">
+          <div class="hero-circle-icon">☕</div>
+          <div class="hero-circle-label">Kopi Lokal</div>
+        </div>
+        <div class="hero-pills">
+          <span class="hero-pill">🌿 Arabica Gayo</span>
+          <span class="hero-pill">🍯 Gula Aren</span>
+          <span class="hero-pill">🥐 Bakeri Segar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-stats">
+    <div class="stat"><span class="stat-num">12+</span><div class="stat-label">Petani Mitra</div></div>
+    <div class="stat"><span class="stat-num">38</span><div class="stat-label">Produk Tersedia</div></div>
+    <div class="stat"><span class="stat-num">2 Kota</span><div class="stat-label">Jangkauan Pengiriman</div></div>
+  </div>
+
+  <div class="home-section">
+    <div class="section-header">
+      <h2 class="section-title">Pilihan Unggulan</h2>
+      <button class="section-link" onclick="goTo('menu')">Lihat semua menu →</button>
+    </div>
+    <div class="featured-grid">
+      <div class="feat-card" onclick="goTo('menu')">
+        <div class="feat-thumb feat-thumb-cafe">☕</div>
+        <div class="feat-body">
+          <div class="feat-tag">Menu Kafe</div>
+          <div class="feat-name">Kopi Susu Gula Aren</div>
+          <div class="feat-price">Rp 28.000</div>
+        </div>
+      </div>
+      <div class="feat-card" onclick="goTo('menu')">
+        <div class="feat-thumb feat-thumb-cafe">🥐</div>
+        <div class="feat-body">
+          <div class="feat-tag">Bakeri</div>
+          <div class="feat-name">Croissant Butter</div>
+          <div class="feat-price">Rp 22.000</div>
+        </div>
+      </div>
+      <div class="feat-card" onclick="goTo('market')">
+        <div class="feat-thumb feat-thumb-market">🌿</div>
+        <div class="feat-body">
+          <div class="feat-tag">Produk Petani</div>
+          <div class="feat-name">Biji Kopi Arabica Gayo</div>
+          <div class="feat-price">Rp 85.000 / 250g</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-section" style="background:var(--green);margin:0;padding:3.5rem">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center">
+      <div>
+        <div style="font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.8rem">Tentang Kafetani</div>
+        <h2 style="font-family:var(--ff-display);font-size:2.2rem;font-weight:300;color:#fff;margin-bottom:1rem;line-height:1.2">Kafe yang terhubung<br>langsung ke kebun</h2>
+        <p style="color:rgba(255,255,255,.7);font-size:.9rem;line-height:1.8;font-weight:300">Setiap biji kopi dan butiran gula aren yang kamu nikmati berasal dari petani lokal yang sudah kami kenal namanya. Kafetani bukan sekadar kafe — ini adalah etalase langsung dari ladang ke cangkir.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:1.8rem;margin-bottom:.6rem">🌱</div>
+          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Bahan Segar</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Langsung dari petani mitra tanpa rantai distribusi panjang</div>
+        </div>
+        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:1.8rem;margin-bottom:.6rem">🤝</div>
+          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Petani Lokal</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Mendukung penghasilan petani Indonesia secara langsung</div>
+        </div>
+        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:1.8rem;margin-bottom:.6rem">📱</div>
+          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Pesan Online</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Order dari web, pickup atau dine-in sesuai preferensi</div>
+        </div>
+        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:1.8rem;margin-bottom:.6rem">🏡</div>
+          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Bawa Pulang</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Beli bahan baku segar untuk diolah sendiri di rumah</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MENU PAGE ══ -->
+<div class="page" id="page-menu">
+  <div class="page-header">
+    <div class="page-header-label">Kafetani · Menu</div>
+    <h1 class="page-header-title">Menu Kafe</h1>
+    <p class="page-header-sub">Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-tab active" onclick="filterMenu(this,'all')">Semua</button>
+    <button class="filter-tab" onclick="filterMenu(this,'kopi')">☕ Kopi</button>
+    <button class="filter-tab" onclick="filterMenu(this,'non-kopi')">🧋 Non-Kopi</button>
+    <button class="filter-tab" onclick="filterMenu(this,'bakeri')">🥐 Bakeri</button>
+    <button class="filter-tab" onclick="filterMenu(this,'camilan')">🍰 Camilan</button>
+  </div>
+  <div class="products-grid" id="menu-grid"></div>
+</div>
+
+<!-- ══ MARKET PAGE ══ -->
+<div class="page" id="page-market">
+  <div class="page-header" style="background:var(--brown)">
+    <div class="page-header-label">Kafetani · Marketplace</div>
+    <h1 class="page-header-title">Marketplace Petani</h1>
+    <p class="page-header-sub">Beli langsung dari petani lokal — biji kopi, gula aren, dan produk segar pilihan</p>
+  </div>
+  <div class="market-layout">
+    <div class="market-sidebar">
+      <div class="sidebar-title">Petani Mitra</div>
+      <div id="farmer-list"></div>
+    </div>
+    <div class="market-products">
+      <div class="market-banner">
+        <div class="market-banner-text">
+          <h3>Langsung dari Kebun</h3>
+          <p>Setiap produk dikirim segar, tanpa perantara</p>
+        </div>
+        <div class="market-banner-icon">🌿</div>
+      </div>
+      <div class="market-grid" id="market-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CART PANEL ══ -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-top">
+    <h2>Keranjang</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-bottom" id="cart-bottom" style="display:none">
+    <div class="cart-row"><span>Subtotal</span><span id="cart-sub">Rp 0</span></div>
+    <div class="cart-row"><span>Layanan</span><span>Rp 2.000</span></div>
+    <div class="cart-total"><span>Total</span><span id="cart-total">Rp 0</span></div>
+    <button class="checkout-btn" onclick="checkout()">Konfirmasi Pesanan →</button>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="order-success" id="order-success">
+  <div class="success-box">
+    <div class="success-icon">✅</div>
+    <h2 class="success-title">Pesanan Diterima!</h2>
+    <p class="success-text">Pesananmu sedang diproses. Kamu bisa pickup atau tunggu konfirmasi dari barista kami. Terima kasih sudah pilih Kafetani! ☕</p>
+    <button class="success-close" onclick="closeSuccess()">Kembali Belanja</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const menuItems = [
+  {id:1,name:"Kopi Susu Gula Aren",cat:"kopi",icon:"☕",price:28000,desc:"Espresso + susu segar + gula aren petani lokal"},
+  {id:2,name:"Americano Arabica",cat:"kopi",icon:"☕",price:22000,desc:"Single origin biji kopi Arabica Gayo"},
+  {id:3,name:"Cappuccino",cat:"kopi",icon:"☕",price:26000,desc:"Double shot espresso dengan microfoam susu"},
+  {id:4,name:"Latte Aren",cat:"kopi",icon:"☕",price:30000,desc:"Latte dengan gula aren dan kayu manis"},
+  {id:5,name:"Matcha Latte",cat:"non-kopi",icon:"🍵",price:29000,desc:"Matcha premium dengan susu full cream"},
+  {id:6,name:"Teh Jahe Madu",cat:"non-kopi",icon:"🫖",price:18000,desc:"Teh herbal dengan jahe segar dan madu lokal"},
+  {id:7,name:"Croissant Butter",cat:"bakeri",icon:"🥐",price:22000,desc:"Berlapis-lapis, renyah di luar lembut di dalam"},
+  {id:8,name:"Roti Gandum",cat:"bakeri",icon:"🍞",price:16000,desc:"Roti gandum utuh homemade tanpa pengawet"},
+  {id:9,name:"Chocolate Cake",cat:"camilan",icon:"🍰",price:32000,desc:"Kue coklat moist dengan ganache premium"},
+  {id:10,name:"Banana Bread",cat:"camilan",icon:"🍌",price:24000,desc:"Banana bread dengan pisang ambon pilihan"},
+  {id:11,name:"Cinnamon Roll",cat:"bakeri",icon:"🌀",price:26000,desc:"Gulung kayu manis dengan cream cheese frosting"},
+  {id:12,name:"Es Kopi Susu",cat:"kopi",icon:"🧊",price:25000,desc:"Cold brew + susu kental + es batu"},
+];
+
+const farmers = [
+  {id:1,name:"Pak Budi",loc:"Gayo, Aceh",icon:"👨‍🌾",cls:"a1"},
+  {id:2,name:"Bu Sari",loc:"Temanggung, Jateng",icon:"👩‍🌾",cls:"a2"},
+  {id:3,name:"Pak Yusuf",loc:"Pangalengan, Jabar",icon:"🧑‍🌾",cls:"a3"},
+];
+
+const marketItems = [
+  {id:101,farmer:1,name:"Biji Kopi Arabica Gayo",icon:"🌿",price:85000,unit:"250g",desc:"Single origin, medium roast"},
+  {id:102,farmer:1,name:"Kopi Robusta Pilihan",icon:"☕",price:65000,unit:"250g",desc:"Bold & earthy, cocok pour over"},
+  {id:103,farmer:2,name:"Gula Aren Organik",icon:"🍯",price:45000,unit:"500g",desc:"Proses alami tanpa pemutih"},
+  {id:104,farmer:2,name:"Gula Kelapa Premium",icon:"🌴",price:38000,unit:"400g",desc:"Dari pohon kelapa Temanggung"},
+  {id:105,farmer:3,name:"Susu Sapi Segar",icon:"🥛",price:28000,unit:"500ml",desc:"Segar dipanen pagi hari"},
+  {id:106,farmer:3,name:"Madu Hutan Murni",icon:"🍯",price:95000,unit:"250ml",desc:"Hutan lindung Pangalengan"},
+];
+
+// ── CART ──────────────────────────────────────────────────────────────────────
+let cart = [];
+let activeFarmer = null;
+
+function addToCart(item, fromBtn) {
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({...item, qty: 1});
+  }
+  updateCartBadge();
+  if (fromBtn) {
+    fromBtn.textContent = '✓';
+    fromBtn.classList.add('added');
+    setTimeout(() => { fromBtn.textContent = '+'; fromBtn.classList.remove('added'); }, 800);
+  }
+  showToast(`${item.name} ditambahkan ke keranjang`);
+}
+
+function updateCartBadge() {
+  const total = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cart-badge').textContent = total;
+}
+
+function openCart() {
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-panel').classList.add('open');
+  renderCart();
+}
+
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-panel').classList.remove('open');
+}
+
+function renderCart() {
+  const el = document.getElementById('cart-items');
+  const bottom = document.getElementById('cart-bottom');
+  if (cart.length === 0) {
+    el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Keranjangmu masih kosong.<br>Yuk pilih menu atau produk!</p></div>`;
+    bottom.style.display = 'none';
+    return;
+  }
+  bottom.style.display = 'block';
+  el.innerHTML = cart.map((item, i) => `
+    <div class="cart-item">
+      <div class="cart-item-icon">${item.icon}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">Rp ${(item.price * item.qty).toLocaleString('id')}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+          <button class="cart-remove" onclick="removeItem(${i})">Hapus</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  const sub = cart.reduce((s,c) => s + c.price * c.qty, 0);
+  document.getElementById('cart-sub').textContent = 'Rp ' + sub.toLocaleString('id');
+  document.getElementById('cart-total').textContent = 'Rp ' + (sub + 2000).toLocaleString('id');
+}
+
+function changeQty(i, d) {
+  cart[i].qty += d;
+  if (cart[i].qty <= 0) cart.splice(i, 1);
+  updateCartBadge();
+  renderCart();
+}
+
+function removeItem(i) {
+  cart.splice(i, 1);
+  updateCartBadge();
+  renderCart();
+}
+
+function checkout() {
+  cart = [];
+  updateCartBadge();
+  closeCart();
+  document.getElementById('order-success').classList.add('show');
+}
+
+function closeSuccess() {
+  document.getElementById('order-success').classList.remove('show');
+}
+
+// ── MENU ─────────────────────────────────────────────────────────────────────
+function renderMenu(items) {
+  document.getElementById('menu-grid').innerHTML = items.map(item => `
+    <div class="product-card">
+      <div class="product-thumb">${item.icon}</div>
+      <div class="product-body">
+        <div class="product-cat">${item.cat}</div>
+        <div class="product-name">${item.name}</div>
+        <div class="product-desc">${item.desc}</div>
+        <div class="product-footer">
+          <span class="product-price">Rp ${item.price.toLocaleString('id')}</span>
+          <button class="add-btn" onclick="addToCart({id:${item.id},name:'${item.name}',icon:'${item.icon}',price:${item.price}}, this)">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterMenu(btn, cat) {
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = cat === 'all' ? menuItems : menuItems.filter(m => m.cat === cat);
+  renderMenu(filtered);
+}
+
+// ── MARKET ────────────────────────────────────────────────────────────────────
+function renderFarmers() {
+  document.getElementById('farmer-list').innerHTML = farmers.map(f => `
+    <div class="farmer-card ${activeFarmer===f.id?'active':''}" onclick="selectFarmer(${f.id})">
+      <div class="farmer-avatar ${f.cls}">${f.icon}</div>
+      <div>
+        <div class="farmer-info-name">${f.name}</div>
+        <div class="farmer-info-loc">📍 ${f.loc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectFarmer(id) {
+  activeFarmer = activeFarmer === id ? null : id;
+  renderFarmers();
+  renderMarket();
+}
+
+function renderMarket() {
+  const items = activeFarmer ? marketItems.filter(m => m.farmer === activeFarmer) : marketItems;
+  document.getElementById('market-grid').innerHTML = items.map(item => `
+    <div class="product-card">
+      <div class="product-thumb green">${item.icon}</div>
+      <div class="product-body">
+        <div class="product-cat">Produk Petani · ${item.unit}</div>
+        <div class="product-name">${item.name}</div>
+        <div class="product-desc">${item.desc}</div>
+        <div class="product-footer">
+          <span class="product-price">Rp ${item.price.toLocaleString('id')}</span>
+          <button class="add-btn" onclick="addToCart({id:${item.id},name:'${item.name}',icon:'${item.icon}',price:${item.price}}, this)">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('nl-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderMenu(menuItems);
+renderFarmers();
+renderMarket();
+</script>
+</body>
+</html>
