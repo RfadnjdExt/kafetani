@@ -12,15 +12,7 @@ $total_revenue = $pdo->query("SELECT SUM(total) FROM orders WHERE status = 'comp
 include '../includes/header.php';
 ?>
 <div class="admin-layout" style="display:grid;grid-template-columns:240px 1fr;min-height:100vh;">
-    <aside style="background:var(--brown);color:#fff;padding:2rem;display:flex;flex-direction:column;gap:1rem;">
-        <h2 style="font-family:var(--ff-display);font-size:1.5rem;margin-bottom:1rem;">Admin Panel</h2>
-        <a href="dashboard.php" style="color:var(--amber);text-decoration:none;font-size:.9rem;">Dashboard</a>
-        <a href="products.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.8;">Produk</a>
-        <a href="farmers.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.8;">Petani</a>
-        <a href="orders.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.8;">Pesanan</a>
-        <hr style="opacity:.2;margin:1rem 0;">
-        <a href="../index.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.8;">← Lihat Situs</a>
-    </aside>
+<?php include '../includes/admin_sidebar.php'; ?>
     
     <main style="padding:3rem;background:var(--cream);">
         <header style="margin-bottom:3rem;">

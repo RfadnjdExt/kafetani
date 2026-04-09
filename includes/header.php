@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kafetani — Farm to Table Cafe & Market</title>
+<link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>assets/img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -31,9 +32,8 @@ html{font-size:16px;scroll-behavior:smooth}
 body{background:var(--cream);color:var(--text);font-family:var(--ff-body);font-weight:400;line-height:1.6;min-height:100vh}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px}
-.nav-logo{font-family:var(--ff-display);font-size:1.6rem;font-weight:600;color:var(--green);letter-spacing:-0.02em;cursor:pointer;text-decoration:none}
-.nav-logo span{color:var(--amber);font-style:italic}
+.main-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px}
+.nav-logo{display:flex;align-items:center;cursor:pointer;text-decoration:none}
 .nav-links{display:flex;gap:2rem;align-items:center}
 .nav-link{font-size:.85rem;font-weight:300;color:var(--text-mid);cursor:pointer;letter-spacing:.04em;text-transform:uppercase;transition:color .2s;text-decoration:none;font-family:var(--ff-body)}
 .nav-link:hover,.nav-link.active{color:var(--green)}
@@ -61,9 +61,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--cream);bord
 .hero-right{background:var(--green);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .hero-pattern{position:absolute;inset:0;opacity:.07}
 .hero-visual{position:relative;z-index:1;text-align:center;padding:3rem}
-.hero-circle{width:260px;height:260px;border-radius:50%;background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 2rem;border:1px solid rgba(255,255,255,.15)}
-.hero-circle-icon{font-size:3.5rem;margin-bottom:.5rem}
-.hero-circle-label{font-family:var(--ff-display);font-size:1.4rem;font-weight:300;color:var(--brown)}
+.hero-circle{width:260px;height:260px;border-radius:50%;background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 2rem;border:1px solid rgba(255,255,255,.15);position:relative;overflow:hidden}
+.hero-circle-icon{width:100%;height:100%;margin:0;overflow:hidden;border-radius:50%;position:absolute;inset:0}
+.hero-circle-label{font-family:var(--ff-display);font-size:1.4rem;font-weight:300;color:#fff;position:relative;z-index:2;background:rgba(42,31,18,.6);padding:.2rem 1.5rem;border-radius:20px}
 .hero-pills{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
 .hero-pill{background:rgba(255,255,255,.12);color:#fff;padding:.35rem .9rem;font-size:.78rem;border:1px solid rgba(255,255,255,.2);letter-spacing:.04em}
 
@@ -175,6 +175,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--cream);bord
 .success-close{background:var(--green);color:#fff;border:none;padding:.8rem 2rem;font-family:var(--ff-body);font-size:.9rem;cursor:pointer;width:100%;transition:background .2s}
 .success-close:hover{background:var(--green2)}
 
+.admin-layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
+.admin-sidebar{background:var(--brown);color:#fff;padding:2rem;display:flex;flex-direction:column;gap:1.5rem;position:sticky;top:0;height:100vh;}
+.admin-nav{display:flex;flex-direction:column;gap:.8rem;}
+.admin-nav-link{color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;transition:opacity .2s;}
+.admin-nav-link:hover{opacity:1;}
+.admin-nav-link.active{color:var(--amber);opacity:1;font-weight:500;}
+
 /* toast */
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--brown);color:#fff;padding:.7rem 1.4rem;font-size:.82rem;z-index:400;transition:transform .3s;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
@@ -190,7 +197,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--cream);bord
 .auth-link{display:block;text-align:center;font-size:.8rem;color:var(--text-mid);margin-top:1rem;text-decoration:none}
 .auth-link:hover{text-decoration:underline}
 
-/* Reuse the rest of specific page styles locally or in a central CSS later */
+footer{background:var(--brown);color:#fff;padding:4rem 3.5rem 2rem;margin-top:2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:4rem;margin-bottom:4rem}
+.footer-logo{height:70px;margin-bottom:1.5rem;filter:brightness(0) invert(1)}
+.footer-desc{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:1.5rem}
+.footer-title{font-family:var(--ff-display);font-size:1.1rem;font-weight:400;color:var(--amber);margin-bottom:1.5rem;letter-spacing:.05em}
+.footer-links{list-style:none}
+.footer-link{display:block;color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;margin-bottom:.8rem;transition:color .2s}
+.footer-link:hover{color:#fff}
+.footer-contact{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
+.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:rgba(255,255,255,.4)}
+@media (max-width:968px){.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
+@media (max-width:568px){.footer-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>

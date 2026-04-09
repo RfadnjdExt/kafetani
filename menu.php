@@ -52,7 +52,7 @@ include 'includes/navbar.php';
         <div class="product-desc"><?= htmlspecialchars($item['description']) ?></div>
         <div class="product-footer">
           <span class="product-price">Rp <?= number_format($item['price'], 0, ',', '.') ?></span>
-          <button class="add-btn" onclick="addToCart({id:<?= $item['id'] ?>, name:'<?= addslashes(htmlspecialchars($item['name'])) ?>', price:<?= $item['price'] ?>, icon:'☕'}, this)">+</button>
+          <button class="add-btn" onclick="addToCart({id:<?= $item['id'] ?>, name:'<?= addslashes(htmlspecialchars($item['name'])) ?>', price:<?= $item['price'] ?>, image:'<?= $item['image'] ?>', icon:'☕'}, this)">+</button>
         </div>
       </div>
     </div>

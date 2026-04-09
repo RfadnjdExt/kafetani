@@ -65,17 +65,7 @@ $products = $pdo->query("SELECT p.*, c.name as category_name FROM products p LEF
 include '../includes/header.php';
 ?>
 <div class="admin-layout" style="display:grid;grid-template-columns:240px 1fr;min-height:100vh;">
-    <aside style="background:var(--brown);color:#fff;padding:2rem;">
-        <h2 style="font-family:var(--ff-display);font-size:1.5rem;margin-bottom:1rem;">Kafetani Admin</h2>
-        <nav style="display:flex;flex-direction:column;gap:.8rem;">
-            <a href="dashboard.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">Dashboard</a>
-            <a href="products.php" style="color:var(--amber);text-decoration:none;font-size:.9rem;">Produk</a>
-            <a href="farmers.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">Petani</a>
-            <a href="orders.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">Pesanan</a>
-            <hr style="opacity:.2;margin:1rem 0;">
-            <a href="../index.php" style="color:#fff;text-decoration:none;font-size:.9rem;opacity:.7;">← Lihat Situs</a>
-        </nav>
-    </aside>
+<?php include '../includes/admin_sidebar.php'; ?>
 
     <main style="padding:3rem;background:var(--cream);">
         <header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;">

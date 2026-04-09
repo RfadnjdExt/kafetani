@@ -1,6 +1,6 @@
 // Kafetani - Main Application Logic
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('kafetani_cart')) || [];
 
 // ── CART FUNCTIONS ───────────────────────────────────────────────────────────
 function addToCart(item, fromBtn) {
@@ -10,6 +10,7 @@ function addToCart(item, fromBtn) {
   } else {
     cart.push({...item, qty: 1});
   }
+  saveCart();
   updateCartBadge();
   if (fromBtn) {
     fromBtn.textContent = '✓';
@@ -23,6 +24,10 @@ function updateCartBadge() {
   const total = cart.reduce((s, c) => s + c.qty, 0);
   const badge = document.getElementById('cart-badge');
   if (badge) badge.textContent = total;
+}
+
+function saveCart() {
+  localStorage.setItem('kafetani_cart', JSON.stringify(cart));
 }
 
 function openCart() {
@@ -50,7 +55,11 @@ function renderCart() {
   if (bottom) bottom.style.display = 'block';
   el.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
-      <div class="cart-item-icon">${item.icon || '📦'}</div>
+      <div class="cart-item-icon">
+        ${item.image 
+          ? `<img src="assets/img/products/${item.image}" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">` 
+          : (item.icon || '📦')}
+      </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-price">Rp ${(item.price * item.qty).toLocaleString('id')}</div>
@@ -74,12 +83,14 @@ function renderCart() {
 function changeQty(i, d) {
   cart[i].qty += d;
   if (cart[i].qty <= 0) cart.splice(i, 1);
+  saveCart();
   updateCartBadge();
   renderCart();
 }
 
 function removeItem(i) {
   cart.splice(i, 1);
+  saveCart();
   updateCartBadge();
   renderCart();
 }
@@ -103,6 +114,7 @@ async function checkout() {
     const result = await response.json();
     if (result.success) {
       cart = [];
+      saveCart();
       updateCartBadge();
       closeCart();
       document.getElementById('order-success').classList.add('show');
@@ -131,5 +143,5 @@ function showToast(msg) {
 
 // ── PAGE SPECIFIC INITIALIZATION ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialization for specific pages can go here
+    updateCartBadge();
 });

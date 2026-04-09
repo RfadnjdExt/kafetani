@@ -28,13 +28,24 @@ include 'includes/navbar.php';
       </svg>
       <div class="hero-visual">
         <div class="hero-circle">
-          <div class="hero-circle-icon">☕</div>
+          <div class="hero-circle-icon">
+            <img src="assets/img/products/kopi_lokal.webp" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+          </div>
           <div class="hero-circle-label">Kopi Lokal</div>
         </div>
         <div class="hero-pills">
-          <span class="hero-pill">🌿 Arabica Gayo</span>
-          <span class="hero-pill">🍯 Gula Aren</span>
-          <span class="hero-pill">🥐 Bakeri Segar</span>
+          <span class="hero-pill" style="position:relative; overflow:hidden; padding:0; height:52px; min-width:160px; border:none; display:inline-flex; align-items:center; justify-content:center;">
+            <img src="assets/img/products/arabica_gayo.webp" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.7);">
+            <span style="position:relative; z-index:2; width:100%; text-align:center; font-weight:500; font-size:0.95rem; letter-spacing:0.02em;">Arabica Gayo</span>
+          </span>
+          <span class="hero-pill" style="position:relative; overflow:hidden; padding:0; height:52px; min-width:160px; border:none; display:inline-flex; align-items:center; justify-content:center;">
+            <img src="assets/img/products/gula_aren.webp" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.7);">
+            <span style="position:relative; z-index:2; width:100%; text-align:center; font-weight:500; font-size:0.95rem; letter-spacing:0.02em;">Gula Aren</span>
+          </span>
+          <span class="hero-pill" style="position:relative; overflow:hidden; padding:0; height:52px; min-width:160px; border:none; display:inline-flex; align-items:center; justify-content:center;">
+            <img src="assets/img/products/bakeri_segar.webp" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.7);">
+            <span style="position:relative; z-index:2; width:100%; text-align:center; font-weight:500; font-size:0.95rem; letter-spacing:0.02em;">Bakeri Segar</span>
+          </span>
         </div>
       </div>
     </div>
@@ -53,7 +64,9 @@ include 'includes/navbar.php';
     </div>
     <div class="featured-grid">
       <div class="feat-card" onclick="location.href='menu.php'">
-        <div class="feat-thumb feat-thumb-cafe">☕</div>
+        <div class="feat-thumb feat-thumb-cafe">
+          <img src="assets/img/products/kopi_susu_gula_aren.webp" style="width:100%; height:100%; object-fit:cover;">
+        </div>
         <div class="feat-body">
           <div class="feat-tag">Menu Kafe</div>
           <div class="feat-name">Kopi Susu Gula Aren</div>
@@ -61,7 +74,9 @@ include 'includes/navbar.php';
         </div>
       </div>
       <div class="feat-card" onclick="location.href='menu.php'">
-        <div class="feat-thumb feat-thumb-cafe">🥐</div>
+        <div class="feat-thumb feat-thumb-cafe">
+          <img src="assets/img/products/croissant_butter.webp" style="width:100%; height:100%; object-fit:cover;">
+        </div>
         <div class="feat-body">
           <div class="feat-tag">Bakeri</div>
           <div class="feat-name">Croissant Butter</div>
@@ -69,7 +84,9 @@ include 'includes/navbar.php';
         </div>
       </div>
       <div class="feat-card" onclick="location.href='marketplace.php'">
-        <div class="feat-thumb feat-thumb-market">🌿</div>
+        <div class="feat-thumb feat-thumb-market">
+          <img src="assets/img/products/biji_kopi_arabica_gayo.webp" style="width:100%; height:100%; object-fit:cover;">
+        </div>
         <div class="feat-body">
           <div class="feat-tag">Produk Petani</div>
           <div class="feat-name">Biji Kopi Arabica Gayo</div>
@@ -86,28 +103,34 @@ include 'includes/navbar.php';
         <h2 style="font-family:var(--ff-display);font-size:2.2rem;font-weight:300;color:#fff;margin-bottom:1rem;line-height:1.2">Kafe yang terhubung<br>langsung ke kebun</h2>
         <p style="color:rgba(255,255,255,.7);font-size:.9rem;line-height:1.8;font-weight:300">Setiap biji kopi dan butiran gula aren yang kamu nikmati berasal dari petani lokal yang sudah kami kenal namanya. Kafetani bukan sekadar kafe — ini adalah etalase langsung dari ladang ke cangkir.</p>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
-        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
-          <div style="font-size:1.8rem;margin-bottom:.6rem">🌱</div>
-          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Bahan Segar</div>
-          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Langsung dari petani mitra tanpa rantai distribusi panjang</div>
+        <div style="position:relative; overflow:hidden; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,.1); min-height:160px; display:flex; flex-direction:column; justify-content:flex-end;">
+          <img src="assets/img/about/bahan_segar.webp" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.4);">
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.2rem">Bahan Segar</div>
+            <div style="font-size:.75rem;color:rgba(255,255,255,.8)">Langsung dari petani mitra tanpa rantai distribusi panjang</div>
+          </div>
         </div>
-        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
-          <div style="font-size:1.8rem;margin-bottom:.6rem">🤝</div>
-          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Petani Lokal</div>
-          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Mendukung penghasilan petani Indonesia secara langsung</div>
+        <div style="position:relative; overflow:hidden; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,.1); min-height:160px; display:flex; flex-direction:column; justify-content:flex-end;">
+          <img src="assets/img/about/petani_lokal.webp" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.4);">
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.2rem">Petani Lokal</div>
+            <div style="font-size:.75rem;color:rgba(255,255,255,.8)">Mendukung penghasilan petani Indonesia secara langsung</div>
+          </div>
         </div>
-        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
-          <div style="font-size:1.8rem;margin-bottom:.6rem">📱</div>
-          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Pesan Online</div>
-          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Order dari web, pickup atau dine-in sesuai preferensi</div>
+        <div style="position:relative; overflow:hidden; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,.1); min-height:160px; display:flex; flex-direction:column; justify-content:flex-end;">
+          <img src="assets/img/about/pesan_online.webp" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.4);">
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.2rem">Pesan Online</div>
+            <div style="font-size:.75rem;color:rgba(255,255,255,.8)">Order dari web, pickup atau dine-in sesuai preferensi</div>
+          </div>
         </div>
-        <div style="background:rgba(255,255,255,.08);padding:1.5rem;border:1px solid rgba(255,255,255,.1)">
-          <div style="font-size:1.8rem;margin-bottom:.6rem">🏡</div>
-          <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.3rem">Bawa Pulang</div>
-          <div style="font-size:.8rem;color:rgba(255,255,255,.6)">Beli bahan baku segar untuk diolah sendiri di rumah</div>
+        <div style="position:relative; overflow:hidden; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,.1); min-height:160px; display:flex; flex-direction:column; justify-content:flex-end;">
+          <img src="assets/img/about/bawa_pulang.webp" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: brightness(0.4);">
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:var(--ff-display);font-size:1.1rem;color:#fff;margin-bottom:.2rem">Bawa Pulang</div>
+            <div style="font-size:.75rem;color:rgba(255,255,255,.8)">Beli bahan baku segar untuk diolah sendiri di rumah</div>
+          </div>
         </div>
-      </div>
     </div>
   </div>
 </div>

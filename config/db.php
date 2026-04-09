@@ -1,5 +1,6 @@
 <?php
 $host = 'localhost';
+define('BASE_URL', '/kafetani/');
 $db   = 'kafetani';
 $user = 'root';
 $pass = ''; // Default XAMPP/Laragon password

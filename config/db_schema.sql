@@ -92,4 +92,4 @@ INSERT INTO categories (name, slug) VALUES
 -- Seed Admin
 -- Password is 'admin123'
 INSERT INTO users (name, email, password, role) VALUES 
-('Administrator', 'admin@kafetani.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+('Administrator', 'admin@kafetani.com', '$2y$10$LJUlRlOwPxp0QO8iDQM4TOMnFUFdaGaITKg/tFT9tOcyfhxO31aHO', 'admin');
