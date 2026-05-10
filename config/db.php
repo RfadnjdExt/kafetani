@@ -3,7 +3,7 @@ $host = 'localhost';
 define('BASE_URL', '/kafetani/');
 $db   = 'kafetani';
 $user = 'root';
-$pass = ''; // Default XAMPP/Laragon password
+$pass = '';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
