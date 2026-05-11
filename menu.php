@@ -27,6 +27,7 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +35,7 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
     <link rel="stylesheet" href="assets/css/style_menu.css">
     <script src="assets/js/menu.js" defer></script>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -48,10 +50,10 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
 
     <!-- Menu Section -->
     <section class="menu-section">
-        <header class="section-header">
+        <threater>
             <h1>Menu Kafe</h1>
             <p>Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
-        </header>
+        </threater>
 
         <!-- Tabs Kategori -->
         <div class="tabs">
@@ -83,4 +85,5 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
         © <?= date('Y') ?> Kafetani - Semua hak dilindungi
     </footer>
 </body>
+
 </html>
