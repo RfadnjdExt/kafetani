@@ -91,6 +91,9 @@ $products = [
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="products.php">Produk</a></li>
+                <li><a href="../admin/farmers.php">Farmer</a></li>
+                <li><a href="../admin/orders.php">Pesanan</a></li>
+
             </ul>
         </aside>
 

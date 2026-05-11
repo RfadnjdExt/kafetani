@@ -41,6 +41,9 @@ $sidebar_menu = [
                         </li>
                     <?php endforeach; ?>
                 </ul>
+                <ul>
+                    <li><a href="../admin/farmers.php">farmer</a></li>
+                    <li><a href="../admin/orders.php">Pesanan</a></li>
             </div>
             <a href="../index.php" class="view-site">← Lihat Situs</a>
         </aside>

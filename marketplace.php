@@ -2,7 +2,7 @@
 include 'config/koneksi.php';
 
 // mengambil data product dari database
-$query = mysqli_query($conn, "SELECT * FROM product");
+$query = mysqli_query($conn, "SELECT * FROM product WHERE type = 'market'");
 ?>
 
 <!DOCTYPE html>
@@ -16,12 +16,12 @@ $query = mysqli_query($conn, "SELECT * FROM product");
 
     <!-- Navbar -->
     <header>
-        <img src="assets/img/logo_v3.svg" alt="Kafetani Logo" class="logo">
+        <img src="/kafetani/assets/img/logo_v3.svg" alt="Kafetani Logo" class="logo">
         <nav>
-            <a href="index.php">BERANDA</a> 
-            <a href="menu.php">MENU KAFE</a> 
-            <a href="marketplace.php">MARKETPLACE</a> 
-            <a href="auth/login.php">LOGIN</a>
+            <a href="/kafetani/index.php">BERANDA</a> 
+            <a href="/kafetani/menu.php">MENU KAFE</a> 
+            <a href="/kafetani/marketplace.php">MARKETPLACE</a> 
+            <a href="/kafetani/auth/login.php">LOGIN</a>
         </nav>
         <button class="cart-btn">🛒 Keranjang (0)</button>
     </header>
