@@ -1,52 +1,28 @@
 <?php
-// Data Menu (Simulasi Database)
-$menu_items = [
-    [
-        "nama"      => "Kopi Susu Gula Aren",
-        "kategori"  => "Kopi",
-        "deskripsi" => "Espresso + susu segar + gula aren petani lokal",
-        "harga"     => 28000,
-        "gambar"    => "assets/img/products/kopi_susu_gula_aren.webp"
-    ],
-    [
-        "nama"      => "Americano Arabica",
-        "kategori"  => "Kopi",
-        "deskripsi" => "Single origin biji kopi Arabica Gayo",
-        "harga"     => 22000,
-        "gambar"    => "assets/img/products/americano_arabica.webp"
-    ],
-    [
-        "nama"      => "Cappuccino",
-        "kategori"  => "Kopi",
-        "deskripsi" => "Double shot espresso dengan microfoam susu",
-        "harga"     => 26000,
-        "gambar"    => "assets/img/products/cappuccino.webp"
-    ],
-    [
-        "nama"      => "Croissant Butter",
-        "kategori"  => "Bakeri",
-        "deskripsi" => "Berlapis-lapis, renyah di luar lembut di dalam",
-        "harga"     => 22000,
-        "gambar"    => "assets/img/products/croissant_butter.webp"
-    ],
-    [
-        "nama"      => "Roti Gandum",
-        "kategori"  => "Bakeri",
-        "deskripsi" => "Roti gandum utuh homemade tanpa pengawet",
-        "harga"     => 16000,
-        "gambar"    => "assets/img/products/roti_gandum.webp"
-    ],
-    [
-        "nama"      => "Chocolate Cake",
-        "kategori"  => "Camilan",
-        "deskripsi" => "Kue cokelat lembut dengan taburan cokelat",
-        "harga"     => 25000,
-        "gambar"    => "assets/img/products/chocolate_cake.webp"
-    ]
-];
+include 'config/koneksi.php';
+
+// Ambil semua menu kafe dari database
+$result = mysqli_query($conn, "
+    SELECT p.nama_produk, p.deskripsi, p.harga, p.gambar, c.name AS kategori
+    FROM product p
+    LEFT JOIN categories c ON p.category_id = c.id
+    WHERE p.type = 'cafe' AND p.stok > 0
+    ORDER BY c.name, p.nama_produk
+");
+$menu_items = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Ambil kategori unik untuk filter tab
-$categories = ["Semua", "Kopi", "Non-Kopi", "Bakeri", "Camilan"];
+$cat_result = mysqli_query($conn, "
+    SELECT DISTINCT c.name
+    FROM product p
+    LEFT JOIN categories c ON p.category_id = c.id
+    WHERE p.type = 'cafe' AND p.stok > 0
+    ORDER BY c.name
+");
+$categories = ["Semua"];
+while ($row = mysqli_fetch_assoc($cat_result)) {
+    if ($row['name']) $categories[] = $row['name'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -88,11 +64,14 @@ $categories = ["Semua", "Kopi", "Non-Kopi", "Bakeri", "Camilan"];
 
         <!-- Menu Items -->
         <div class="menu-items">
+            <?php if (empty($menu_items)): ?>
+                <p style="text-align:center; color:#888;">Menu belum tersedia.</p>
+            <?php endif; ?>
             <?php foreach ($menu_items as $item): ?>
-                <div class="item-card <?= $item['kategori'] ?>">
-                    <img src="<?= $item['gambar'] ?>" alt="<?= $item['nama'] ?>">
-                    <h3><?= $item['nama'] ?></h3>
-                    <p><?= $item['deskripsi'] ?></p>
+                <div class="item-card <?= htmlspecialchars($item['kategori']) ?>">
+                    <img src="assets/img/products/<?= htmlspecialchars($item['gambar']) ?>" alt="<?= htmlspecialchars($item['nama_produk']) ?>">
+                    <h3><?= htmlspecialchars($item['nama_produk']) ?></h3>
+                    <p><?= htmlspecialchars($item['deskripsi']) ?></p>
                     <div class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
                     <button class="add-btn">+</button>
                 </div>

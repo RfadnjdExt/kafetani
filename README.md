@@ -1,67 +1,37 @@
 # Kafetani — Farm to Table Cafe & Marketplace
 
-Kafetani adalah website PHP native + MySQL untuk cafe, marketplace petani lokal, dan panel admin sederhana.
-
-## Ringkasan
-
-- Beranda dengan hero, pilihan unggulan, dan halaman informasi.
-- Menu kafe untuk produk minuman, bakeri, dan camilan.
-- Marketplace petani untuk produk bahan segar dan kebutuhan rumah tangga.
-- Autentikasi login dan register.
-- Panel admin untuk dashboard, produk, pesanan, dan kasir.
-- Skrip utilitas database dan reset akun admin.
+Versi 1.0 · PHP Native + MySQL
 
 ## Setup & Instalasi
 
-1. Jalankan Apache dan MySQL melalui XAMPP, Laragon, atau stack lokal lain.
-2. Buat database baru dengan nama `db_kafetani`.
-3. Import file `config/db_schema.sql` ke database tersebut.
-4. Sesuaikan kredensial database di `config/db.php`.
-5. Jika halaman lama masih memakai koneksi mysqli, samakan juga isi `config/koneksi.php`.
-6. Buka aplikasi di `http://localhost/kafetani/`.
+1. **Jalankan XAMPP / Laragon**: Pastikan Apache dan MySQL aktif.
+2. **Setup Database**:
+   - Buka phpMyAdmin.
+   - Buat database baru dengan nama `kafetani`.
+   - Import file `config/db_schema.sql`.
+3. **Konfigurasi Database**:
+   - Buka `config/db.php`.
+   - Sesuaikan `user` dan `pass` jika berbeda dari default (root / empty).
+4. **Seeding Data (Opsional)**:
+   - Akses `http://localhost/kafetani/seed.php` di browser untuk mengisi data awal (produk & petani).
+5. **Akses Aplikasi**:
+   - Buka `http://localhost/kafetani/` untuk halaman utama.
+   - Login Admin: `admin@kafetani.com` / `admin123`.
 
-## Akses Cepat
-
-- Beranda: `index.php`
-- Menu kafe: `menu.php`
-- Marketplace: `marketplace.php`
-- Login: `auth/login.php`
-- Register: `auth/register.php`
-- Dashboard admin: `admin/dashboard.php`
-- Kasir admin: `admin/kasir.php`
-
-## Akun Default
-
-- Admin default ada di data schema dengan email `admin@gmail.com`.
-- Password awal adalah `admin123`.
-- Jika perlu menyetel ulang akun admin, gunakan `reset_admin.php`.
-
-## Fitur
-
-- Autentikasi pengguna dengan alur login dan register.
-- Tampilan frontend terpisah untuk beranda, menu, dan marketplace.
-- Dashboard admin dengan statistik ringkas.
-- Manajemen produk, pesanan, dan kasir di panel admin.
-- Endpoint API untuk kebutuhan data frontend.
-- Utilitas database seperti `alter_db.php` dan `get_tables.php`.
+## Fitur v1.0
+- **Autentikasi**: Register & Login (Pelanggan & Admin).
+- **Manajemen Menu**: Admin dapat CRUD produk cafe & marketplace.
+- **Manajemen Petani**: Admin dapat mendaftarkan mitra petani lokal.
+- **Pemesanan**: Keranjang belanja AJAX + Checkout (simpan ke database).
+- **Panel Admin**: Dashboard statistik & Update status pesanan.
 
 ## Struktur Folder
-
-- `admin/`: halaman panel admin.
-- `api/`: endpoint data produk dan pesanan.
-- `assets/css/`: stylesheet halaman publik dan admin.
-- `assets/js/`: logika frontend untuk dashboard, menu, dan produk.
-- `assets/img/`: aset gambar aplikasi.
-- `auth/`: login, register, logout, dan proses autentikasi.
-- `config/`: koneksi database dan schema.
-- `includes/`: komponen layout bersama.
-- `marketplace.php`, `menu.php`, `index.php`: halaman utama aplikasi.
-- `reset_admin.php`, `alter_db.php`, `get_tables.php`: skrip utilitas.
-
-## Catatan
-
-- Proyek ini masih memakai PHP native tanpa framework.
-- Beberapa file utilitas dan koneksi lama dipertahankan untuk kebutuhan migrasi dan maintenance.
+- `admin/`: Panel pengelolaan data & pesanan.
+- `api/`: Endpoint untuk fetch data & order.
+- `assets/`: File CSS, JS, dan Gambar produk.
+- `auth/`: Login, Register, Logout.
+- `config/`: Koneksi & Schema database.
+- `includes/`: Template reusable (header, footer, navbar).
 
 ---
-*Dikembangkan untuk mendukung petani lokal Indonesia.*
+*Dikembangkan dengan ❤️ untuk mendukung petani lokal Indonesia.*
