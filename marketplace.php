@@ -31,7 +31,9 @@ $query = mysqli_query($conn, "SELECT * FROM product WHERE type = 'market'");
                 <a href="/kafetani/auth/login.php" class="nav-link">Login</a>
             <?php endif; ?>
         </nav>
-        <button class="cart-btn">🛒 Keranjang (0)</button>
+        <button class="cart-btn" onclick="openCart()">
+            🛒 Keranjang <span id="cart-badge" class="cart-badge">0</span>
+        </button>
     </header>
 
     <!-- Judul / Hero -->
@@ -104,13 +106,19 @@ $query = mysqli_query($conn, "SELECT * FROM product WHERE type = 'market'");
                         <p class="harga"> Rp <?php echo number_format($data['harga']); ?> </p>
 
                         <!-- Tombol tambah ke keranjang -->
-                        <button class="add-to-cart">+</button>
+                        <button class="add-to-cart"
+                            data-id="<?php echo $data['id_product']; ?>"
+                            data-name="<?php echo htmlspecialchars($data['nama_produk']); ?>"
+                            data-price="<?php echo (int)$data['harga']; ?>"
+                            data-image="<?php echo htmlspecialchars($data['gambar']); ?>">+</button>
                     </div>
                 </div>
             </div>
         <?php } ?>
 
     </section>
+    <?php include 'includes/cart.php'; ?>
+    <script src="assets/js/app.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>

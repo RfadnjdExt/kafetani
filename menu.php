@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config/koneksi.php';
 
 // Ambil semua menu kafe dari database
@@ -31,6 +32,8 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kafetani - Menu Kafe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style_menu.css">
     <script src="assets/js/menu.js" defer></script>
 </head>
@@ -50,7 +53,9 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
                 <a href="/kafetani/auth/login.php" class="nav-link">LOGIN</a>
             <?php endif; ?>
         </nav>
-        <button class="cart">🛒 Keranjang (0)</button>
+        <button class="cart" onclick="openCart()">
+            🛒 Keranjang <span id="cart-badge" class="cart-badge">0</span>
+        </button>
     </header>
 
     <!-- Menu Section -->
@@ -83,7 +88,11 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
                     <h3><?= htmlspecialchars($item['nama_produk']) ?></h3>
                     <p><?= htmlspecialchars($item['deskripsi']) ?></p>
                     <div class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
-                    <button class="add-btn">+</button>
+                    <button class="add-btn"
+                        data-id="<?= htmlspecialchars($item['nama_produk']) ?>"
+                        data-name="<?= htmlspecialchars($item['nama_produk']) ?>"
+                        data-price="<?= (int)$item['harga'] ?>"
+                        data-image="<?= htmlspecialchars($item['gambar']) ?>">+</button>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -92,5 +101,8 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
     <footer>
         © <?= date('Y') ?> Kafetani - Semua hak dilindungi
     </footer>
+
+    <?php include 'includes/cart.php'; ?>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
