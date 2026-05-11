@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config/db.php';
+include 'config/koneksi.php';
 include 'includes/header.php';
 include 'includes/navbar.php';
 ?>

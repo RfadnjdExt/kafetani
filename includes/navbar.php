@@ -1,27 +1,19 @@
-<?php
-$current_page = basename($_SERVER['PHP_SELF']);
-$parts = explode('/', trim($_SERVER['SCRIPT_NAME'], '/'));
-$base = '';
-if (isset($parts[0]) && strpos($parts[0], '.') === false) {
-  $base = '/' . $parts[0];
-}
-?>
 <nav class="main-nav">
-  <a href="<?php echo $base; ?>/index.php" class="nav-logo">
-    <img src="<?php echo $base; ?>/assets/img/logo_v3.svg" alt="Kafetani Logo" style="height:30px;">
+  <a href="/kafetani/index.php" class="nav-logo">
+    <img src="/kafetani/assets/img/logo_v3.svg" alt="Kafetani Logo" style="height:30px;">
   </a>
   <div class="nav-links">
-    <a href="<?php echo $base; ?>/index.php" class="nav-link <?= ($current_page == 'index.php') ? 'active' : '' ?>">Beranda</a>
-    <a href="<?php echo $base; ?>/menu.php" class="nav-link <?= ($current_page == 'menu.php') ? 'active' : '' ?>">Menu Kafe</a>
-    <a href="<?php echo $base; ?>/marketplace.php"
+    <a href="/kafetani/index.php" class="nav-link <?= ($current_page == 'index.php') ? 'active' : '' ?>">Beranda</a>
+    <a href="/kafetani/menu.php" class="nav-link <?= ($current_page == 'menu.php') ? 'active' : '' ?>">Menu Kafe</a>
+    <a href="/kafetani/marketplace.php"
       class="nav-link <?= ($current_page == 'marketplace.php') ? 'active' : '' ?>">Marketplace</a>
     <?php if (isset($_SESSION['user_id'])): ?>
       <?php if ($_SESSION['role'] == 'admin'): ?>
-        <a href="<?php echo $base; ?>/admin/dashboard.php" class="nav-link">Admin</a>
+        <a href="/kafetani/admin/dashboard.php" class="nav-link">Admin</a>
       <?php endif; ?>
-      <a href="<?php echo $base; ?>/auth/logout.php" class="nav-link">Logout</a>
+      <a href="/kafetani/auth/logout.php" class="nav-link">Logout</a>
     <?php else: ?>
-      <a href="<?php echo $base; ?>/auth/login.php" class="nav-link">Login</a>
+      <a href="/kafetani/auth/login.php" class="nav-link">Login</a>
     <?php endif; ?>
   </div>
   <button class="nav-cart" onclick="openCart()">

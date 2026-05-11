@@ -48,10 +48,13 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
 
     <!-- Menu Section -->
     <section class="menu-section">
-        <header class="section-header">
+        </tr>
+        <thread>
             <h1>Menu Kafe</h1>
             <p>Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
-        </header>
+        </thread>
+        <tr>
+            
 
         <!-- Tabs Kategori -->
         <div class="tabs">

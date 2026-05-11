@@ -1,5 +1,5 @@
 <?php
-require_once '../config/db.php';
+include '../config/koneksi.php';
 require_once '../includes/auth_check.php';
 checkAdmin();
 
