@@ -133,6 +133,14 @@ form p {
     gap: 16px;
 }
 
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #D9CEBC;
+}
+
 .divider span {
     font-size: 13px;
     color: #7A6550;
