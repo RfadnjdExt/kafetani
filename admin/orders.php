@@ -85,7 +85,7 @@ include '../includes/header.php';
                     </td>
                     <td style="padding:1rem;">
                         <?php
-                        $items_stmt = $pdo->prepare("SELECT oi.*, p.name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?");
+                        $items_stmt = $pdo->prepare("SELECT oi.*, p.nama_produk AS name FROM order_items oi JOIN product p ON oi.product_id = p.id_product WHERE oi.order_id = ?");
                         $items_stmt->execute([$o['id']]);
                         $items = $items_stmt->fetchAll();
                         ?>

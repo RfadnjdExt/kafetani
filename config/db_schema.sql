@@ -57,6 +57,35 @@ CREATE TABLE IF NOT EXISTS product (
 
 
 -- =============================================
+-- TABEL ORDERS
+-- =============================================
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total INT NOT NULL DEFAULT 0,
+    type ENUM('cafe','market','mixed') DEFAULT 'cafe',
+    status ENUM('pending','processing','ready','completed','cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+-- =============================================
+-- TABEL ORDER ITEMS
+-- =============================================
+CREATE TABLE IF NOT EXISTS order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    price INT NOT NULL DEFAULT 0,
+    subtotal INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES product(id_product) ON DELETE CASCADE
+);
+
+
+-- =============================================
 -- DATA ADMIN
 -- =============================================
 INSERT IGNORE INTO users (nama, email, password, role)
