@@ -10,7 +10,7 @@ $query = mysqli_query($conn, "SELECT * FROM product WHERE type = 'market'");
 <html>
 <head>
     <title>Marketplace Petani - Kafetani</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/marketplace.css">
 </head>
 <body>
