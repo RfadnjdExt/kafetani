@@ -1,26 +1,27 @@
 <?php
-// KAFETANI/layar/dashboard.php (atau DashboardController.php)
-
 session_start();
 
 // 1. Proteksi Keamanan: Memastikan hanya Admin yang bisa mengakses halaman ini
 // Jalur disesuaikan keluar 1 folder ('../') menuju folder includes
 require_once '../includes/auth_check.php';
-checkAdmin(); 
+checkAdmin();
 
 // 2. Memanggil Model Layar PHP yang mengelola data bisnis
 require_once 'DashboardModel.php';
 
-class DashboardController {
+class DashboardController
+{
     private $model;
 
     // Konstruktor untuk inisialisasi objek Model
-    public function __construct() {
+    public function __construct()
+    {
         $this->model = new DashboardModel();
     }
 
     // Fungsi utama untuk mengatur data dan memanggil View Layar PHP
-    public function index() {
+    public function index()
+    {
         // A. Mengambil nama admin dari session login
         $admin_name = isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Admin';
 
@@ -42,4 +43,3 @@ class DashboardController {
 // 3. Menjalankan fungsi index pada Controller
 $app = new DashboardController();
 $app->index();
-?>

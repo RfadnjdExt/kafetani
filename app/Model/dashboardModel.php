@@ -1,6 +1,4 @@
 <?php
-// KAFETANI/layar/DashboardModel.php
-
 class DashboardModel
 {
     // Menjalankan fungsi mengambil data statistik bisnis Kafetani
