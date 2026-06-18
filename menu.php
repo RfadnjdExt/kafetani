@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config/koneksi.php';
 
 // Ambil semua menu kafe dari database
@@ -32,6 +33,8 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kafetani - Menu Kafe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style_menu.css">
     <script src="assets/js/menu.js" defer></script>
 </head>
@@ -43,47 +46,73 @@ while ($row = mysqli_fetch_assoc($cat_result)) {
             <a href="index.php">BERANDA</a>
             <a href="menu.php">MENU KAFE</a>
             <a href="marketplace.php">MARKETPLACE</a>
-            <a href="auth/login.php">LOGIN</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if ($_SESSION['role'] == 'admin'): ?>
+                    <a href="/kafetani/admin/dashboard.php" class="nav-link">ADMIN</a>
+                <?php endif; ?>
+                <a href="/kafetani/auth/logout.php" class="nav-link">LOGOUT</a>
+            <?php else: ?>
+                <a href="/kafetani/auth/login.php" class="nav-link">LOGIN</a>
+            <?php endif; ?>
         </nav>
-        <button class="cart">🛒 Keranjang (0)</button>
+        <button class="cart" onclick="openCart()">
+            🛒 Keranjang <span id="cart-badge" class="cart-badge">0</span>
+        </button>
     </header>
 
     <!-- Menu Section -->
     <section class="menu-section">
-        <threater>
+        <<<<<<< HEAD
+            <threater>
             <h1>Menu Kafe</h1>
             <p>Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
-        </threater>
+            </threater>
+            =======
+            </tr>
+            <thread>
+                <h1>Menu Kafe</h1>
+                <p>Minuman, bakeri, dan camilan buatan sendiri dari bahan lokal</p>
+            </thread>
+            <tr>
 
-        <!-- Tabs Kategori -->
-        <div class="tabs">
-            <?php foreach ($categories as $index => $cat): ?>
-                <button class="<?= $index === 0 ? 'active' : '' ?>">
-                    <?= $cat ?>
-                </button>
-            <?php endforeach; ?>
-        </div>
+                >>>>>>> 92d6141028345beee7c7d23957fdf1124117f37b
 
-        <!-- Menu Items -->
-        <div class="menu-items">
-            <?php if (empty($menu_items)): ?>
-                <p style="text-align:center; color:#888;">Menu belum tersedia.</p>
-            <?php endif; ?>
-            <?php foreach ($menu_items as $item): ?>
-                <div class="item-card <?= htmlspecialchars($item['kategori']) ?>">
-                    <img src="assets/img/products/<?= htmlspecialchars($item['gambar']) ?>" alt="<?= htmlspecialchars($item['nama_produk']) ?>">
-                    <h3><?= htmlspecialchars($item['nama_produk']) ?></h3>
-                    <p><?= htmlspecialchars($item['deskripsi']) ?></p>
-                    <div class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
-                    <button class="add-btn">+</button>
+                <!-- Tabs Kategori -->
+                <div class="tabs">
+                    <?php foreach ($categories as $index => $cat): ?>
+                        <button class="<?= $index === 0 ? 'active' : '' ?>">
+                            <?= $cat ?>
+                        </button>
+                    <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
-        </div>
+
+                <!-- Menu Items -->
+                <div class="menu-items">
+                    <?php if (empty($menu_items)): ?>
+                        <p style="text-align:center; color:#888;">Menu belum tersedia.</p>
+                    <?php endif; ?>
+                    <?php foreach ($menu_items as $item): ?>
+                        <div class="item-card <?= htmlspecialchars($item['kategori']) ?>">
+                            <img src="assets/img/products/<?= htmlspecialchars($item['gambar']) ?>" alt="<?= htmlspecialchars($item['nama_produk']) ?>">
+                            <h3><?= htmlspecialchars($item['nama_produk']) ?></h3>
+                            <p><?= htmlspecialchars($item['deskripsi']) ?></p>
+                            <div class="price">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
+                            <button class="add-btn"
+                                data-id="<?= htmlspecialchars($item['nama_produk']) ?>"
+                                data-name="<?= htmlspecialchars($item['nama_produk']) ?>"
+                                data-price="<?= (int)$item['harga'] ?>"
+                                data-image="<?= htmlspecialchars($item['gambar']) ?>">+</button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
     </section>
 
     <footer>
         © <?= date('Y') ?> Kafetani - Semua hak dilindungi
     </footer>
+
+    <?php include 'includes/cart.php'; ?>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

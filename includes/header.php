@@ -1,10 +1,19 @@
+<?php
+// Definisikan BASE_URL jika belum ada (bisa juga di-set dari koneksi.php)
+if (!defined('BASE_URL')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $path     = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+    define('BASE_URL', $protocol . '://' . $host . $path . '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kafetani — Farm to Table Cafe & Market</title>
-<link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>assets/img/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/kafetani/assets/img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>

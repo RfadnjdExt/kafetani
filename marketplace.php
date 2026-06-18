@@ -1,29 +1,39 @@
 <?php
+session_start();
 include 'config/koneksi.php';
 
 // mengambil data product dari database
-$query = mysqli_query($conn, "SELECT * FROM product");
+$query = mysqli_query($conn, "SELECT * FROM product WHERE type = 'market'");
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Marketplace Petani - Kafetani</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/marketplace.css">
 </head>
 <body>
-
+    
     <!-- Navbar -->
     <header>
-        <img src="assets/img/logo_v3.svg" alt="Kafetani Logo" class="logo">
+        <img src="/kafetani/assets/img/logo_v3.svg" alt="Kafetani Logo" class="logo">
         <nav>
-            <a href="index.php">BERANDA</a> 
-            <a href="menu.php">MENU KAFE</a> 
-            <a href="marketplace.php">MARKETPLACE</a> 
-            <a href="auth/login.php">LOGIN</a>
+            <a href="/kafetani/index.php">BERANDA</a> 
+            <a href="/kafetani/menu.php">MENU KAFE</a> 
+            <a href="/kafetani/marketplace.php">MARKETPLACE</a> 
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if ($_SESSION['role'] == 'admin'): ?>
+                    <a href="/kafetani/admin/dashboard.php" class="nav-link">Admin</a>
+                <?php endif; ?>
+                <a href="/kafetani/auth/logout.php" class="nav-link">Logout</a>
+            <?php else: ?>
+                <a href="/kafetani/auth/login.php" class="nav-link">Login</a>
+            <?php endif; ?>
         </nav>
-        <button class="cart-btn">🛒 Keranjang (0)</button>
+        <button class="cart-btn" onclick="openCart()">
+            🛒 Keranjang <span id="cart-badge" class="cart-badge">0</span>
+        </button>
     </header>
 
     <!-- Judul / Hero -->
@@ -96,13 +106,19 @@ $query = mysqli_query($conn, "SELECT * FROM product");
                         <p class="harga"> Rp <?php echo number_format($data['harga']); ?> </p>
 
                         <!-- Tombol tambah ke keranjang -->
-                        <button class="add-to-cart">+</button>
+                        <button class="add-to-cart"
+                            data-id="<?php echo $data['id_product']; ?>"
+                            data-name="<?php echo htmlspecialchars($data['nama_produk']); ?>"
+                            data-price="<?php echo (int)$data['harga']; ?>"
+                            data-image="<?php echo htmlspecialchars($data['gambar']); ?>">+</button>
                     </div>
                 </div>
             </div>
         <?php } ?>
 
     </section>
+    <?php include 'includes/cart.php'; ?>
+    <script src="assets/js/app.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>

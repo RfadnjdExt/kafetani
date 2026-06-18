@@ -1,22 +1,19 @@
-<?php
-$current_page = basename($_SERVER['PHP_SELF']);
-?>
 <nav class="main-nav">
-  <a href="<?= BASE_URL ?>index.php" class="nav-logo">
-    <img src="<?= BASE_URL ?>assets/img/logo_v3.svg" alt="Kafetani Logo" style="height:30px;">
+  <a href="/kafetani/index.php" class="nav-logo">
+    <img src="/kafetani/assets/img/logo_v3.svg" alt="Kafetani Logo" style="height:30px;">
   </a>
   <div class="nav-links">
-    <a href="<?= BASE_URL ?>index.php" class="nav-link <?= ($current_page == 'index.php') ? 'active' : '' ?>">Beranda</a>
-    <a href="<?= BASE_URL ?>menu.php" class="nav-link <?= ($current_page == 'menu.php') ? 'active' : '' ?>">Menu Kafe</a>
-    <a href="<?= BASE_URL ?>marketplace.php"
+    <a href="/kafetani/index.php" class="nav-link <?= ($current_page == 'index.php') ? 'active' : '' ?>">Beranda</a>
+    <a href="/kafetani/menu.php" class="nav-link <?= ($current_page == 'menu.php') ? 'active' : '' ?>">Menu Kafe</a>
+    <a href="/kafetani/marketplace.php"
       class="nav-link <?= ($current_page == 'marketplace.php') ? 'active' : '' ?>">Marketplace</a>
     <?php if (isset($_SESSION['user_id'])): ?>
       <?php if ($_SESSION['role'] == 'admin'): ?>
-        <a href="admin/dashboard.php" class="nav-link">Admin</a>
+        <a href="/kafetani/admin/dashboard.php" class="nav-link">Admin</a>
       <?php endif; ?>
-      <a href="<?= BASE_URL ?>auth/logout.php" class="nav-link">Logout</a>
+      <a href="/kafetani/auth/logout.php" class="nav-link">Logout</a>
     <?php else: ?>
-      <a href="<?= BASE_URL ?>auth/login.php" class="nav-link">Login</a>
+      <a href="/kafetani/auth/login.php" class="nav-link">Login</a>
     <?php endif; ?>
   </div>
   <button class="nav-cart" onclick="openCart()">

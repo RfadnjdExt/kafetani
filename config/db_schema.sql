@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     nama VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
-    role ENUM('admin','user') DEFAULT 'user'
+    role ENUM('admin','kasir','user') DEFAULT 'user'
 );
 
 
@@ -57,10 +57,52 @@ CREATE TABLE IF NOT EXISTS product (
 
 
 -- =============================================
--- DATA ADMIN
+-- TABEL ORDERS
+-- =============================================
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total INT NOT NULL DEFAULT 0,
+    type ENUM('cafe','market','mixed') DEFAULT 'cafe',
+    source ENUM('online','offline') DEFAULT 'online',
+    customer_name VARCHAR(100) DEFAULT NULL,
+    status ENUM('pending','processing','ready','completed','cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+-- =============================================
+-- TABEL ORDER ITEMS
+-- =============================================
+CREATE TABLE IF NOT EXISTS order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    price INT NOT NULL DEFAULT 0,
+    subtotal INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES product(id_product) ON DELETE CASCADE
+);
+
+
+-- =============================================
+-- DATA ADMIN & KASIR
 -- =============================================
 INSERT IGNORE INTO users (nama, email, password, role)
-VALUES ('Administrator', 'admin@gmail.com', 'admin123', 'admin');
+VALUES ('Administrator', 'admin@gmail.com', 'kafetani2025', 'admin');
+
+INSERT IGNORE INTO users (nama, email, password, role)
+VALUES ('Kasir Utama', 'kasir@kafetani.com', 'kasir123', 'kasir');
+
+-- =============================================
+-- MIGRASI (jalankan jika DB sudah ada sebelumnya)
+-- =============================================
+-- ALTER TABLE users MODIFY role ENUM('admin','kasir','user') DEFAULT 'user';
+-- ALTER TABLE orders ADD COLUMN source ENUM('online','offline') DEFAULT 'online' AFTER type;
+-- ALTER TABLE orders ADD COLUMN customer_name VARCHAR(100) DEFAULT NULL AFTER source;
+
 
 
 -- =============================================
@@ -77,10 +119,10 @@ INSERT IGNORE INTO categories (name, slug) VALUES
 -- =============================================
 -- DATA FARMERS
 -- =============================================
-INSERT IGNORE INTO farmers (name, location, avatar) VALUES
-('Pak Budi', 'Gayo, Aceh', 'pak_budi.webp'),
-('Bu Sari', 'Temanggung, Jateng', 'bu_sari.webp'),
-('Pak Yusuf', 'Pangalengan, Jabar', 'pak_yusuf.webp');
+INSERT IGNORE INTO farmers (name, location, contact, bio, avatar) VALUES
+('Pak Budi', 'Gayo, Aceh', '0812-3456-7890', 'Petani kopi Arabica generasi ketiga di dataran tinggi Gayo. Sudah 20 tahun mengelola kebun seluas 3 hektar dengan metode organik tanpa pestisida kimia.', 'pak_budi.webp'),
+('Bu Sari', 'Temanggung, Jateng', '0856-9876-5432', 'Pelopor gula aren tradisional di Temanggung. Bu Sari mengolah nira aren secara manual menggunakan tungku kayu bakar warisan leluhur untuk menjaga cita rasa autentik.', 'bu_sari.webp'),
+('Pak Yusuf', 'Pangalengan, Jabar', '0821-5544-3322', 'Petani muda yang fokus pada sayuran hidroponik dan bahan baku bakeri segar. Lulusan pertanian IPB yang memilih kembali ke desa untuk mengembangkan pertanian modern ramah lingkungan.', 'pak_yusuf.webp');
 
 
 -- =============================================
