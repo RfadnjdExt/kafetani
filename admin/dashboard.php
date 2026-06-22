@@ -5,15 +5,6 @@ session_start();
 require_once '../includes/auth_check.php';
 checkAdmin();
 
-<<<<<<< HEAD
-// Panggil Controller dari folder app
-require_once '../../app/Controller/dashboardController.php';
-
-// Jalankan aplikasi via MVC
-$controller = new DashboardController();
-$controller->index();
-?>
-=======
 $admin_name       = $_SESSION['nama'];
 $total_pendapatan = 28000;
 $total_pesanan    = 7;
@@ -66,4 +57,3 @@ $current_page     = 'dashboard';
 
 </div>
 <?php include '../includes/admin_footer.php'; ?>
->>>>>>> 96e46403ac59177fac5aae4a2cc738b9225279a3
