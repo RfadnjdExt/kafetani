@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Kebijakan Privasi — Kafetani')
+@section('title', 'Kebijakan Privasi  Kafetani')
 
 @push('styles')
 <style>

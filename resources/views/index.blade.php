@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Kafetani — Farm to Table Cafe & Market')
+@section('title', 'Kafetani  Farm to Table Cafe & Market')
 
 @push('styles')
 <style>
@@ -73,7 +73,7 @@
     <div class="hero-left">
       <div class="hero-tag">Farm to Table · Sejak Panen</div>
       <h1 class="hero-title">Dari <em>ladang</em><br>ke cangkirmu</h1>
-      <p class="hero-desc">Kafetani menghubungkan petani lokal langsung ke meja kamu — kopi, bakeri, dan bahan segar pilihan tanpa perantara.</p>
+      <p class="hero-desc">Kafetani menghubungkan petani lokal langsung ke meja kamu  kopi, bakeri, dan bahan segar pilihan tanpa perantara.</p>
       <div class="hero-actions">
         <a href="{{ route('menu') }}" class="btn-primary">Pesan Sekarang</a>
         <a href="{{ route('marketplace') }}" class="btn-outline">Lihat Marketplace</a>
@@ -158,7 +158,7 @@
       <div>
         <div class="about-band-label">Tentang Kafetani</div>
         <h2 class="about-band-title">Kafe yang terhubung<br>langsung ke kebun</h2>
-        <p class="about-band-desc">Setiap biji kopi dan butiran gula aren yang kamu nikmati berasal dari petani lokal yang sudah kami kenal namanya. Kafetani bukan sekadar kafe — ini adalah etalase langsung dari ladang ke cangkir.</p>
+        <p class="about-band-desc">Setiap biji kopi dan butiran gula aren yang kamu nikmati berasal dari petani lokal yang sudah kami kenal namanya. Kafetani bukan sekadar kafe  ini adalah etalase langsung dari ladang ke cangkir.</p>
       </div>
       <div class="about-cards">
         <div class="about-card">

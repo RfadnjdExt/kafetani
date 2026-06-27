@@ -33,7 +33,7 @@
       </td>
       <td style="font-weight:500;">{{ $farmer->name }}</td>
       <td style="font-size:.85rem;">{{ $farmer->location }}</td>
-      <td style="font-size:.85rem;">{{ $farmer->contact ?? '—' }}</td>
+      <td style="font-size:.85rem;">{{ $farmer->contact ?? '' }}</td>
       <td>
         <div style="display:flex;gap:.4rem;align-items:center;">
           <a href="{{ route('admin.farmers.edit', $farmer) }}" class="btn-edit">Edit</a>

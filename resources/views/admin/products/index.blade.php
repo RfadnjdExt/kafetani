@@ -73,7 +73,7 @@
         @endif
       </td>
       <td style="font-weight:500;">{{ $prod->nama_produk }}</td>
-      <td style="font-size:.83rem;">{{ $prod->category->name ?? '—' }}</td>
+      <td style="font-size:.83rem;">{{ $prod->category->name ?? '' }}</td>
       <td>
         <span class="badge {{ $prod->type === 'cafe' ? 'badge-cafe' : 'badge-market' }}">
           {{ $prod->type }}
@@ -148,7 +148,7 @@
         <div class="form-group">
           <label>Kategori</label>
           <select name="category_id" id="f-cat">
-            <option value="">— Pilih —</option>
+            <option value=""> Pilih </option>
             @foreach($categories as $cat)
               <option value="{{ $cat->id }}">{{ $cat->name }}</option>
             @endforeach
@@ -163,7 +163,7 @@
 
       <div class="form-group">
         <label>Petani (opsional, khusus marketplace)</label>
-        <input type="text" name="petani" id="f-petani" placeholder="cth. Pak Budi — Gayo, Aceh">
+        <input type="text" name="petani" id="f-petani" placeholder="cth. Pak Budi  Gayo, Aceh">
       </div>
 
       <div class="form-group">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Menu Kafe — Kafetani')
+@section('title', 'Menu Kafe  Kafetani')
 
 @push('scripts')
 <script>

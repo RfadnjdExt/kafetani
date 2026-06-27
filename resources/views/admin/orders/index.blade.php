@@ -114,7 +114,7 @@ select.status-select:focus{border-color:var(--green)}
             <button type="submit" class="btn-update-status">✓</button>
           </form>
         @else
-          <span style="font-size:.78rem;color:var(--text-light);">—</span>
+          <span style="font-size:.78rem;color:var(--text-light);"></span>
         @endif
       </td>
     </tr>
