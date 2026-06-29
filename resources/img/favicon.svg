@@ -1,0 +1,31 @@
+<svg width="32" height="32" viewBox="0 0 32 32" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Kafetani</title>
+
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="#2D5016"/>
+
+  <!-- Left branch -->
+  <path d="M 10 24 C 11 20 12.5 16 14 12" fill="none" stroke="#7BAD45" stroke-width="1" stroke-linecap="round"/>
+  <!-- Left leaf 1 -->
+  <path transform="translate(10.5,20) rotate(-50)" d="M 0 0 C -2 -3.5 -2 -7 0 -8.5 C 2 -7 2 -3.5 0 0 Z" fill="#4A7C23"/>
+  <!-- Left leaf 2 -->
+  <path transform="translate(12,15) rotate(-60)" d="M 0 0 C -1.8 -3 -1.8 -6 0 -7.5 C 1.8 -6 1.8 -3 0 0 Z" fill="#7BAD45"/>
+
+  <!-- Right branch -->
+  <path d="M 22 24 C 21 20 19.5 16 18 12" fill="none" stroke="#7BAD45" stroke-width="1" stroke-linecap="round"/>
+  <!-- Right leaf 1 -->
+  <path transform="translate(21.5,20) rotate(50)" d="M 0 0 C -2 -3.5 -2 -7 0 -8.5 C 2 -7 2 -3.5 0 0 Z" fill="#4A7C23"/>
+  <!-- Right leaf 2 -->
+  <path transform="translate(20,15) rotate(60)" d="M 0 0 C -1.8 -3 -1.8 -6 0 -7.5 C 1.8 -6 1.8 -3 0 0 Z" fill="#7BAD45"/>
+
+  <!-- Center stem -->
+  <path d="M 16 24 L 16 10" fill="none" stroke="#7BAD45" stroke-width="1" stroke-linecap="round"/>
+  <!-- Top leaf -->
+  <path d="M 16 10 C 12 8 11 4 16 3 C 21 4 20 8 16 10 Z" fill="#7BAD45"/>
+
+  <!-- Amber berry at top -->
+  <circle cx="16" cy="5" r="2.5" fill="#C8883A"/>
+
+  <!-- Letter K mark at center bottom -->
+  <text x="16" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="7" font-weight="400" fill="#F7F3EC" letter-spacing="0.5">K</text>
+</svg>
