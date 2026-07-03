@@ -47,7 +47,7 @@ function renderCart() {
   if (!el) return;
 
   if (cart.length === 0) {
-    el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Keranjangmu masih kosong.<br>Yuk pilih menu atau produk!</p></div>`;
+    el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><p>Keranjangmu masih kosong.<br>Yuk pilih menu atau produk!</p></div>`;
     if (bottom) bottom.style.display = 'none';
     return;
   }

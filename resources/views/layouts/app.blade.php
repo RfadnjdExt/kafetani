@@ -80,7 +80,8 @@ body{background:var(--cream);color:var(--text);font-family:var(--ff-body);font-w
 #cart-panel .cart-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-mid);padding:.2rem}
 #cart-panel .cart-items{flex:1;overflow-y:auto;padding:1.2rem}
 #cart-panel .cart-empty{text-align:center;padding:3rem 1rem;color:var(--text-light)}
-#cart-panel .cart-empty-icon{font-size:3rem;margin-bottom:1rem}
+#cart-panel .cart-empty-icon{margin-bottom:1rem}
+#cart-panel .cart-empty-icon svg{display:inline-block}
 #cart-panel .cart-item{display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border)}
 #cart-panel .cart-item-icon{width:48px;height:48px;background:var(--cream2);flex-shrink:0;overflow:hidden}
 #cart-panel .cart-item-icon img{width:100%;height:100%;object-fit:cover}
@@ -136,9 +137,11 @@ footer{background:var(--brown);color:#fff;padding:4rem 3.5rem 2rem;margin-top:2r
       @if(auth()->user()->isAdmin())
         <a href="{{ route('admin.dashboard') }}" class="nav-link">Admin</a>
       @endif
-      <form method="POST" action="{{ route('logout') }}" style="display:inline">
+      <a href="{{ route('logout') }}"
+         onclick="event.preventDefault(); document.getElementById('nav-logout-form').submit();"
+         class="nav-link">Logout</a>
+      <form id="nav-logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
         @csrf
-        <button type="submit" class="nav-link" style="background:none;border:none;cursor:pointer;">Logout</button>
       </form>
     @else
       <a href="{{ route('login') }}" class="nav-link">Login</a>
@@ -168,7 +171,14 @@ footer{background:var(--brown);color:#fff;padding:4rem 3.5rem 2rem;margin-top:2r
   </div>
   <div class="cart-items" id="cart-items">
     <div class="cart-empty">
-      <div class="cart-empty-icon">🛒</div>
+      <div class="cart-empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="56" height="56"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </div>
       <p>Keranjangmu masih kosong.<br>Yuk pilih menu atau produk!</p>
     </div>
   </div>
