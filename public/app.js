@@ -104,13 +104,27 @@ async function checkout() {
   const sub = cart.reduce((s,c) => s + c.price * c.qty, 0);
   const total = sub + 2000;
 
+  // Mendapatkan token CSRF dari meta tag di layout Blade
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
   try {
-    const response = await fetch('api/orders.php', {
+    const response = await fetch('/api/orders', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        ...(csrfToken ? { 'X-CSRF-TOKEN': csrfToken } : {})
+      },
       body: JSON.stringify({ cart, total, type: 'pickup' })
     });
     
+    // Menangani respon tidak terautentikasi (Unauthorized) dari Laravel Middleware
+    if (response.status === 401) {
+      showToast("Silakan login terlebih dahulu untuk membuat pesanan.");
+      setTimeout(() => window.location.href = '/login', 1500);
+      return;
+    }
+
     const result = await response.json();
     if (result.success) {
       cart = [];
@@ -120,8 +134,8 @@ async function checkout() {
       document.getElementById('order-success').classList.add('show');
     } else {
       showToast(result.message || "Gagal membuat pesanan.");
-      if (result.message && result.message.includes("login")) {
-          setTimeout(() => window.location.href = 'auth/login.php', 1500);
+      if (result.message && result.message.toLowerCase().includes("login")) {
+          setTimeout(() => window.location.href = '/login', 1500);
       }
     }
   } catch (error) {
