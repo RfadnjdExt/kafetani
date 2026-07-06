@@ -59,7 +59,10 @@ body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;">
+          <label for="password" style="margin-bottom:0;">Password</label>
+          <a href="{{ route('password.request') }}" style="font-size:.78rem;color:var(--green);text-decoration:none;">Lupa Password?</a>
+        </div>
         <div class="password-row">
           <input type="password" id="password" name="password"
                  placeholder="Masukkan password"
