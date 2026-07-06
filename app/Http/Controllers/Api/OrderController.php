@@ -95,6 +95,13 @@ class OrderController extends Controller
         \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
         \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
 
+        if (!config('midtrans.is_production')) {
+            \Midtrans\Config::$curlOptions = [
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => false,
+            ];
+        }
+
         try {
             $order = DB::transaction(function () use ($userId, $realTotal, $lineItems) {
                 // Status awal adalah pending_payment karena diintegrasikan dengan Payment Gateway
