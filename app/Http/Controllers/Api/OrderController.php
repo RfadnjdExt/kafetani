@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -12,6 +13,49 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    /**
+     * GET /api/orders
+     * Riwayat pesanan milik user yang sedang login (dipakai app Android).
+     * Dipisah dari store() di bawah karena itu juga dipakai checkout web
+     * (session guard) — method baru ini eksplisit pakai guard 'api'.
+     */
+    public function index(): JsonResponse
+    {
+        $orders = Order::with(['items.product'])
+            ->where('user_id', auth('api')->id())
+            ->orderByDesc('created_at')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'orders'  => OrderResource::collection($orders),
+        ]);
+    }
+
+    /**
+     * GET /api/orders/{order}
+     * Detail satu pesanan — hanya boleh dilihat oleh pemiliknya. Dipakai app
+     * Android buat polling status setelah pembayaran Midtrans (karena update
+     * payment_status baru masuk lewat webhook async, bukan langsung saat
+     * checkout), maupun buat lihat riwayat.
+     */
+    public function show(Order $order): JsonResponse
+    {
+        if ($order->user_id !== auth('api')->id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pesanan tidak ditemukan.',
+            ], 404);
+        }
+
+        $order->load(['items.product']);
+
+        return response()->json([
+            'success' => true,
+            'order'   => new OrderResource($order),
+        ]);
+    }
+
     /**
      * POST /api/orders
      * Terima pesanan dari keranjang belanja online (marketplace / menu kafe)

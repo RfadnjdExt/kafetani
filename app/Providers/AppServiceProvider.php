@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\ApiToken;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,5 +35,28 @@ class AppServiceProvider extends ServiceProvider
                 CURLOPT_HTTPHEADER => [],
             ];
         }
+
+        // Driver auth kustom untuk guard 'api' (dipakai aplikasi Android).
+        // Membaca header "Authorization: Bearer <token>", cocokkan hash-nya
+        // ke tabel api_tokens, lalu kembalikan User pemilik token tsb.
+        Auth::viaRequest('api-token', function ($request) {
+            $plain = $request->bearerToken();
+
+            if (! $plain) {
+                return null;
+            }
+
+            $token = ApiToken::with('user')
+                ->where('token', hash('sha256', $plain))
+                ->first();
+
+            if (! $token) {
+                return null;
+            }
+
+            $token->forceFill(['last_used_at' => now()])->save();
+
+            return $token->user;
+        });
     }
 }

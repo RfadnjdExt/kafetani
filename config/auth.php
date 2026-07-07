@@ -42,6 +42,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // Guard untuk aplikasi Android (native) — berbasis token, bukan sesi.
+        // Driver 'api-token' didaftarkan lewat Auth::viaRequest() di AppServiceProvider.
+        'api' => [
+            'driver' => 'api-token',
+            'provider' => 'users',
+        ],
     ],
 
     /*
