@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Farmer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -15,10 +16,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $type       = $request->query('type', 'all');
-        $products   = Product::with('category')->type($type)->orderBy('type')->orderBy('nama_produk')->get();
+        $products   = Product::with(['category', 'farmer'])->type($type)->orderBy('type')->orderBy('nama_produk')->get();
         $categories = Category::orderBy('name')->get();
+        $farmers    = Farmer::orderBy('name')->get();
 
-        return view('admin.products.index', compact('products', 'categories', 'type'));
+        return view('admin.products.index', compact('products', 'categories', 'farmers', 'type'));
     }
 
     /**
@@ -36,7 +38,7 @@ class ProductController extends Controller
             'deskripsi'   => ['nullable', 'string'],
             'category_id' => ['nullable', 'integer', 'exists:categories,id'],
             'type'        => ['required', 'in:cafe,market'],
-            'petani'      => ['nullable', 'string', 'max:100'],
+            'farmer_id'   => ['nullable', 'integer', 'exists:farmers,id'],
             'gambar'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 

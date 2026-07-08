@@ -57,7 +57,7 @@
                                  alt="{{ $product->nama_produk }}">
                         </div>
                         <div class="product-body">
-                            <div class="product-cat">{{ $product->petani }}</div>
+                            <div class="product-cat">{{ $product->farmer->name ?? 'Petani Mitra' }}</div>
                             <div class="product-name">{{ $product->nama_produk }}</div>
                             <p class="product-desc">{{ $product->deskripsi }}</p>
                             <div class="product-footer">

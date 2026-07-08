@@ -17,7 +17,7 @@ class ProductController extends Controller
     {
         $type = $request->query('type', 'all');
 
-        $products = Product::with('category')
+        $products = Product::with(['category', 'farmer'])
             ->when(in_array($type, ['cafe', 'market']), fn ($q) => $q->where('type', $type))
             ->orderBy('type')
             ->orderBy('nama_produk')
@@ -77,7 +77,7 @@ class ProductController extends Controller
             'deskripsi'   => ['nullable', 'string'],
             'category_id' => ['nullable', 'integer', 'exists:categories,id'],
             'type'        => ['required', 'in:cafe,market'],
-            'petani'      => ['nullable', 'string', 'max:100'],
+            'farmer_id'   => ['nullable', 'integer', 'exists:farmers,id'],
             'gambar'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
@@ -107,7 +107,7 @@ class ProductController extends Controller
         return response()->json([
             'success' => true,
             'message' => $message,
-            'product' => new ProductResource($product->load('category')),
+            'product' => new ProductResource($product->load(['category', 'farmer'])),
         ]);
     }
 }

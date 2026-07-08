@@ -12,11 +12,11 @@ class Farmer extends Model
     const UPDATED_AT = null;
 
     /**
-     * Relasi: satu petani bisa punya banyak produk
+     * Relasi: satu petani bisa punya banyak produk (foreign key murni: farmer_id)
      */
     public function products()
     {
-        return $this->hasMany(Product::class, 'petani');
+        return $this->hasMany(Product::class, 'farmer_id');
     }
 
     /**

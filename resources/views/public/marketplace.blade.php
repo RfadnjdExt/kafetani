@@ -5,7 +5,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const farmerCards = document.querySelectorAll('.farmer-card');
-  const prodCards   = document.querySelectorAll('.product-card[data-petani]');
+  const prodCards   = document.querySelectorAll('.product-card[data-farmer-id]');
 
   farmerCards.forEach(fc => {
     fc.addEventListener('click', function () {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
       this.classList.add('active');
       const target = this.dataset.farmer;
       prodCards.forEach(card => {
-        card.style.display = (target === 'Semua Petani' || card.dataset.petani.startsWith(target))
+        card.style.display = (target === 'all' || card.dataset.farmerId === target)
           ? '' : 'none';
       });
     });
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <aside class="market-sidebar">
       <div class="sidebar-title">Petani Mitra</div>
 
-      <div class="farmer-card active" data-farmer="Semua Petani">
+      <div class="farmer-card active" data-farmer="all">
         <div class="farmer-avatar" style="background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg></div>
         <div>
           <div class="farmer-info-name">Semua Petani</div>
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
 
       @foreach($farmers as $farmer)
-        <div class="farmer-card" data-farmer="{{ $farmer->name }}">
+        <div class="farmer-card" data-farmer="{{ $farmer->id }}">
           <div class="farmer-avatar">
             @if($farmer->avatar)
               <img src="{{ asset('farmers/' . $farmer->avatar) }}" alt="{{ $farmer->name }}">
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       <div class="market-grid">
         @forelse($products as $prod)
-          <div class="product-card" data-petani="{{ $prod->petani }}">
+          <div class="product-card" data-farmer-id="{{ $prod->farmer_id }}">
             <div class="product-thumb">
               @if($prod->gambar)
                 <img src="{{ asset('products/' . $prod->gambar) }}"
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
               @endif
             </div>
             <div class="product-body">
-              <div class="product-cat">{{ $prod->petani ?? 'Petani Mitra' }}</div>
+              <div class="product-cat">{{ $prod->farmer->name ?? 'Petani Mitra' }}</div>
               <div class="product-name">{{ $prod->nama_produk }}</div>
               <p class="product-desc">{{ $prod->deskripsi }}</p>
               <div class="product-footer">

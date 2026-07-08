@@ -45,7 +45,7 @@ class CatalogController extends Controller
      */
     public function marketplace(): JsonResponse
     {
-        $products = Product::where('type', 'market')->get();
+        $products = Product::where('type', 'market')->with('farmer')->get();
         $farmers  = Farmer::orderBy('name')->get();
 
         return response()->json([
@@ -85,7 +85,7 @@ class CatalogController extends Controller
      */
     public function product(Product $product): JsonResponse
     {
-        $product->load('category');
+        $product->load(['category', 'farmer']);
 
         return response()->json([
             'success' => true,

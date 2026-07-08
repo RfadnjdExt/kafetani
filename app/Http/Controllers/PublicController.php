@@ -34,7 +34,7 @@ class PublicController extends Controller
 
     public function marketplace()
     {
-        $products = Product::where('type', 'market')->get();
+        $products = Product::where('type', 'market')->with('farmer')->get();
         $farmers  = Farmer::orderBy('name')->get();
 
         return view('public.marketplace', compact('products', 'farmers'));

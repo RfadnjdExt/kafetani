@@ -19,7 +19,7 @@ class Product extends Model
         'harga',
         'stok',
         'deskripsi',
-        'petani',
+        'farmer_id',
         'gambar',
         'category_id',
         'type',
@@ -46,6 +46,14 @@ class Product extends Model
     public function scopeAvailable($query)
     {
         return $query->where('stok', '>', 0);
+    }
+
+    /**
+     * Relasi: produk (marketplace) berasal dari satu petani (foreign key murni)
+     */
+    public function farmer()
+    {
+        return $this->belongsTo(Farmer::class, 'farmer_id');
     }
 
     /**

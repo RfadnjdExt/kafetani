@@ -19,11 +19,13 @@ class ProductResource extends JsonResource
             'harga_format'  => $this->harga_format,
             'stok'          => $this->stok,
             'deskripsi'     => $this->deskripsi,
-            // Catatan: kolom 'petani' di tabel product isinya teks bebas
-            // (contoh: "Pak Budi - Gayo, Aceh"), bukan foreign key ke tabel
-            // farmers — jadi dikirim apa adanya sebagai string, sama seperti
-            // yang dipakai di tampilan web (lihat database/seeders).
-            'petani'        => $this->petani,
+            'farmer_id'     => $this->farmer_id,
+            // Relasi foreign key murni ke tabel farmers (lihat Product::farmer()).
+            'farmer'        => $this->whenLoaded('farmer', fn () => $this->farmer ? [
+                'id'       => $this->farmer->id,
+                'name'     => $this->farmer->name,
+                'location' => $this->farmer->location,
+            ] : null),
             'type'          => $this->type,
             'category_id'   => $this->category_id,
             'category_name' => $this->whenLoaded('category', fn () => $this->category?->name),

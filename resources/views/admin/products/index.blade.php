@@ -96,7 +96,7 @@
               'deskripsi'   => $prod->deskripsi,
               'category_id' => $prod->category_id,
               'type'        => $prod->type,
-              'petani'      => $prod->petani,
+              'farmer_id'   => $prod->farmer_id,
               'gambar'      => $prod->gambar,
             ]) }})">Edit</button>
           <a href="{{ route('admin.products.delete', ['hapus' => $prod->id_product]) }}"
@@ -163,7 +163,12 @@
 
       <div class="form-group">
         <label>Petani (opsional, khusus marketplace)</label>
-        <input type="text" name="petani" id="f-petani" placeholder="cth. Pak Budi  Gayo, Aceh">
+        <select name="farmer_id" id="f-farmer">
+          <option value="">— Tidak ada —</option>
+          @foreach($farmers as $farmer)
+            <option value="{{ $farmer->id }}">{{ $farmer->name }} — {{ $farmer->location }}</option>
+          @endforeach
+        </select>
       </div>
 
       <div class="form-group">
@@ -195,7 +200,7 @@ function openModal(data) {
     document.getElementById('f-desc').value        = data.deskripsi ?? '';
     document.getElementById('f-type').value        = data.type;
     document.getElementById('f-cat').value         = data.category_id ?? '';
-    document.getElementById('f-petani').value      = data.petani ?? '';
+    document.getElementById('f-farmer').value      = data.farmer_id ?? '';
     document.getElementById('f-gambar-lama').value = data.gambar ?? '';
     const prev = document.getElementById('img-preview');
     if (data.gambar) {
