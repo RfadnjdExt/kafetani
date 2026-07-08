@@ -74,6 +74,27 @@
 .btn-print{background:var(--green);color:#fff}
 .btn-print:hover{background:var(--green2)}
 .btn-close-receipt{background:var(--cream);border:1px solid var(--border)!important;color:var(--text-mid)}
+
+/* Cetak struk: sembunyikan sidebar/layout kasir/tombol, sisakan struk saja di 1 halaman */
+@media print{
+  .admin-sidebar,.page-header,.kasir-layout{display:none!important}
+  .admin-main{padding:0!important}
+  .modal-bg.open{
+    position:static!important;
+    display:block!important;
+    background:none!important;
+    padding:0!important;
+  }
+  .receipt-box{
+    box-shadow:none!important;
+    max-width:100%!important;
+    width:320px!important;
+    margin:0 auto!important;
+    padding:1rem 0!important;
+  }
+  .receipt-actions{display:none!important}
+  @page{margin:10mm}
+}
 </style>
 @endpush
 
