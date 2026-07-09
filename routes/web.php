@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -26,6 +27,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/forgot-password', [ForgotPasswordController::class, 'sendEmail'])->name('password.email');
     Route::get('/reset-password',   [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
     Route::post('/reset-password',  [ForgotPasswordController::class, 'reset'])->name('password.update');
+
+    // Login dengan Google
+    Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])

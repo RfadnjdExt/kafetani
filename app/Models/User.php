@@ -12,7 +12,7 @@ class User extends Authenticatable
 
     public $timestamps = false;
 
-    protected $fillable = ['nama', 'email', 'password', 'role'];
+    protected $fillable = ['nama', 'email', 'password', 'role', 'google_id', 'avatar'];
 
     protected $hidden = ['password', 'remember_token'];
 

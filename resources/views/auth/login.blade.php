@@ -30,6 +30,11 @@ body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display
 .auth-links a{color:var(--green);text-decoration:none}
 .auth-links a:hover{text-decoration:underline}
 .alert-err{background:#FCEBEB;border-left:3px solid #c0392b;color:#7b2d1e;padding:.7rem .9rem;font-size:.83rem;margin-bottom:1.2rem}
+.divider{display:flex;align-items:center;gap:.8rem;margin:1.4rem 0;color:var(--text-mid);font-size:.78rem}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;background:#fff;border:1px solid var(--border);padding:.75rem;font-family:var(--ff-body);font-size:.88rem;font-weight:500;color:var(--text);cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s}
+.btn-google:hover{background:var(--cream);border-color:#bcae95}
+.btn-google img{width:18px;height:18px;object-fit:contain}
 </style>
 </head>
 <body>
@@ -73,6 +78,13 @@ body{background:var(--cream);font-family:var(--ff-body);min-height:100vh;display
 
       <button type="submit" class="btn-submit">Masuk →</button>
     </form>
+
+    <div class="divider">atau</div>
+
+    <a href="{{ route('auth.google.redirect') }}" class="btn-google">
+      <img src="{{ asset('google-symbol.png') }}" alt="Google">
+      Masuk dengan Google
+    </a>
 
     <div class="auth-links" style="margin-top:1.5rem">
       Belum punya akun? <a href="{{ route('register') }}">Daftar Gratis</a>
