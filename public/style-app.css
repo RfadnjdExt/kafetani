@@ -825,18 +825,49 @@ footer {
         border-bottom: 1px solid var(--border);
         min-height: auto;
         display: flex;
-        flex-wrap: wrap;
-        gap: .5rem;
-        padding: 1.2rem;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: .6rem;
+        padding: 1rem 1.2rem;
+        align-items: center;
+    }
+
+    .market-sidebar::-webkit-scrollbar {
+        display: none;
     }
 
     .sidebar-title {
-        width: 100%;
+        display: none;
     }
 
     .farmer-card {
         margin-bottom: 0;
         flex: 0 0 auto;
+        flex-direction: column;
+        text-align: center;
+        gap: .35rem;
+        padding: .5rem .3rem;
+        width: 68px;
+    }
+
+    .farmer-avatar {
+        width: 44px;
+        height: 44px;
+    }
+
+    .farmer-info-name {
+        font-size: .68rem;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 68px;
+    }
+
+    .farmer-info-loc {
+        display: none;
     }
 
     .market-products {
