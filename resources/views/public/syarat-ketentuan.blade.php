@@ -2,12 +2,7 @@
 @section('title', 'Syarat & Ketentuan  Kafetani')
 
 @push('styles')
-<style>
-.prose-wrap{max-width:800px;margin:4rem auto;padding:0 1.5rem;line-height:1.8;color:var(--text-mid)}
-.prose-section{margin-bottom:3rem}
-.prose-section h2{font-family:var(--ff-display);font-size:1.8rem;color:var(--brown);margin-bottom:1rem;font-weight:300}
-.prose-footer{margin-top:5rem;font-size:.85rem;color:rgba(0,0,0,.4);text-align:center;padding-top:2rem;border-top:1px solid var(--border)}
-</style>
+<link rel="stylesheet" href="{{ asset('style-syarat-ketentuan.css') }}">
 @endpush
 
 @section('content')

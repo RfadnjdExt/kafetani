@@ -2,26 +2,7 @@
 @section('title', $action === 'edit' ? 'Edit Petani' : 'Tambah Petani')
 
 @push('styles')
-<style>
-.form-card{background:#fff;border:1px solid var(--border);padding:2rem;max-width:620px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
-.form-group{margin-bottom:1.2rem}
-.form-group.full{grid-column:1/-1}
-.form-group label{display:block;font-size:.8rem;font-weight:500;color:var(--text-mid);margin-bottom:.4rem;letter-spacing:.02em}
-.form-group input,.form-group textarea,.form-group select{
-  width:100%;padding:.65rem .8rem;border:1px solid var(--border);
-  font-family:var(--ff-body);font-size:.9rem;color:var(--text);
-  background:var(--cream);outline:none;transition:border-color .15s;
-}
-.form-group input:focus,.form-group textarea:focus{border-color:var(--green)}
-.form-group textarea{resize:vertical;min-height:90px}
-.field-err{font-size:.75rem;color:#c0392b;margin-top:.3rem}
-.avatar-preview{width:64px;height:64px;border-radius:50%;overflow:hidden;background:var(--cream2);margin-bottom:.6rem;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
-.avatar-preview img{width:100%;height:100%;object-fit:cover}
-.form-actions{display:flex;gap:.8rem;align-items:center;margin-top:1.5rem}
-.btn-back{font-size:.85rem;color:var(--text-mid);text-decoration:none}
-.btn-back:hover{color:var(--green)}
-</style>
+<link rel="stylesheet" href="{{ asset('style-farmer-form.css') }}">
 @endpush
 
 @section('content')
@@ -104,18 +85,5 @@
 @endsection
 
 @push('scripts')
-<script>
-function previewAvatar(input) {
-  if (!input.files || !input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const img = document.getElementById('avatar-img');
-    const fb  = document.getElementById('avatar-fallback');
-    img.src = e.target.result;
-    img.style.display = 'block';
-    if (fb) fb.style.display = 'none';
-  };
-  reader.readAsDataURL(input.files[0]);
-}
-</script>
+<script src="{{ asset('script-farmer-form.js') }}"></script>
 @endpush

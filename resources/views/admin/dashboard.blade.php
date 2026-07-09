@@ -2,13 +2,7 @@
 @section('title', 'Dashboard')
 
 @push('styles')
-<style>
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:2.5rem}
-.stat-card{background:#fff;border:1px solid var(--border);padding:1.5rem}
-.stat-card h3{font-size:.78rem;font-weight:500;color:var(--text-mid);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem}
-.stat-num{font-family:var(--ff-display);font-size:2.2rem;font-weight:300;color:var(--green);display:block}
-.quick-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.5rem;align-items:center}
-</style>
+<link rel="stylesheet" href="{{ asset('style-dashboard.css') }}">
 @endpush
 
 @section('content')

@@ -8,53 +8,7 @@
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('style-auth.css') }}">
-    <style>
-        .auth-logo { display: block; text-align: center; margin-bottom: 1.5rem; }
-        .auth-logo img { height: 36px; }
-        .alert-success {
-            background: #edf7ee;
-            color: #2d5016;
-            border: 1px solid #d4e8d5;
-            padding: .75rem 1rem;
-            font-size: .85rem;
-            margin-bottom: 1rem;
-            text-align: left;
-            border-left: 3px solid #2D5016;
-        }
-        .alert-error {
-            background: #fcebea;
-            color: #c0392b;
-            border: 1px solid #f5d1cf;
-            padding: .75rem 1rem;
-            font-size: .85rem;
-            margin-bottom: 1rem;
-            text-align: left;
-            border-left: 3px solid #c0392b;
-        }
-        .info-text {
-            font-size: .85rem;
-            color: #7A6550;
-            text-align: left;
-            margin-bottom: 1.2rem;
-            line-height: 1.6;
-        }
-        .back-link { display: block; text-align: center; margin-top: 1rem; font-size: .8rem; color: #A9967E; }
-
-        /* Debug token — tampilkan di dev, hapus di produksi */
-        .debug-token {
-            background: #fffbea;
-            border: 1px solid #f5e79e;
-            border-left: 3px solid #f39c12;
-            padding: .75rem 1rem;
-            margin-top: 1rem;
-            font-size: .8rem;
-            color: #7A6550;
-            text-align: left;
-            word-break: break-all;
-        }
-        .debug-token strong { color: #3B2A1A; }
-        .debug-token a { color: #2D5016; font-weight: 500; }
-    </style>
+    <link rel="stylesheet" href="{{ asset('style-forgot-password.css') }}">
 </head>
 <body>
 
