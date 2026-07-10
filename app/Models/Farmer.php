@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Farmer extends Model
 {
-    protected $fillable = ['name', 'location', 'contact', 'bio', 'avatar'];
+    protected $fillable = ['user_id', 'name', 'location', 'contact', 'bio', 'avatar'];
 
     // Tabel tidak pakai updated_at
     const UPDATED_AT = null;
@@ -17,6 +17,15 @@ class Farmer extends Model
     public function products()
     {
         return $this->hasMany(Product::class, 'farmer_id');
+    }
+
+    /**
+     * Relasi: profil farmer ini terhubung ke satu akun user (role: petani).
+     * Nullable — farmer lama yang belum onboarding akun tidak punya user_id.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

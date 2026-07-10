@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daftar  Kafetani</title>
+<title>Daftar sebagai Petani &middot; Kafetani</title>
 <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -17,8 +17,8 @@
     </a>
   </div>
   <div class="auth-box">
-    <h1 class="auth-title">Daftar Akun</h1>
-    <p class="auth-sub">Bergabung dengan komunitas Kafetani</p>
+    <h1 class="auth-title">Daftar sebagai Petani</h1>
+    <p class="auth-sub">Jual produk segar Anda langsung ke pelanggan Kafetani</p>
 
     @if($errors->any())
       <div class="alert-err">
@@ -26,14 +26,14 @@
       </div>
     @endif
 
-    <form method="POST" action="{{ route('register.post') }}">
+    <form method="POST" action="{{ route('register-petani.post') }}" enctype="multipart/form-data">
       @csrf
 
       <div class="form-group">
         <label for="nama_lengkap">Nama Lengkap</label>
         <input type="text" id="nama_lengkap" name="nama_lengkap"
                value="{{ old('nama_lengkap') }}"
-               placeholder="Nama lengkap kamu"
+               placeholder="Nama lengkap Anda"
                class="{{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}"
                autocomplete="name" required>
         @error('nama_lengkap')<div class="field-err">{{ $message }}</div>@enderror
@@ -73,21 +73,44 @@
         @error('konfirmasi_password')<div class="field-err">{{ $message }}</div>@enderror
       </div>
 
-      <button type="submit" class="btn-submit">Daftar Sekarang →</button>
+      <div class="form-group">
+        <label for="location">Lokasi / Domisili</label>
+        <input type="text" id="location" name="location"
+               value="{{ old('location') }}"
+               placeholder="Contoh: Gayo, Aceh"
+               class="{{ $errors->has('location') ? 'is-invalid' : '' }}"
+               required>
+        @error('location')<div class="field-err">{{ $message }}</div>@enderror
+      </div>
+
+      <div class="form-group">
+        <label for="contact">Kontak (opsional)</label>
+        <input type="text" id="contact" name="contact"
+               value="{{ old('contact') }}"
+               placeholder="Nomor HP / WhatsApp">
+        @error('contact')<div class="field-err">{{ $message }}</div>@enderror
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Bio Singkat (opsional)</label>
+        <textarea id="bio" name="bio" rows="3" placeholder="Ceritakan sedikit tentang usaha tani Anda">{{ old('bio') }}</textarea>
+        @error('bio')<div class="field-err">{{ $message }}</div>@enderror
+      </div>
+
+      <div class="form-group">
+        <label for="avatar">Foto Profil (opsional)</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*">
+        @error('avatar')<div class="field-err">{{ $message }}</div>@enderror
+      </div>
+
+      <button type="submit" class="btn-submit">Daftar sebagai Petani →</button>
     </form>
 
-    <div class="divider">atau</div>
-
-    <a href="{{ route('auth.google.redirect') }}" class="btn-google">
-      <img src="{{ asset('google-symbol.png') }}" alt="Google">
-      Daftar dengan Google
-    </a>
-
     <div class="auth-links auth-links--first">
-      Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
+      Ingin daftar sebagai pelanggan? <a href="{{ route('register') }}">Daftar di sini</a>
     </div>
     <div class="auth-links auth-links--first">
-      Petani lokal? <a href="{{ route('register-petani') }}">Daftar sebagai Petani</a>
+      Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
     </div>
     <div class="auth-links auth-links--last">
       <a href="{{ route('home') }}">← Kembali ke Beranda</a>

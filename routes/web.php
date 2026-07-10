@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RegisterPetaniController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PublicController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\KasirController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Petani\PetaniController;
 use App\Http\Controllers\Api\OrderController as ApiOrderController;
 use App\Http\Controllers\Api\MidtransController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +23,10 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register',  [RegisterController::class, 'showForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+
+    // Registrasi khusus Petani Lokal (SRS Bab 2.3 & 6, FR-19)
+    Route::get('/register-petani',  [RegisterPetaniController::class, 'showForm'])->name('register-petani');
+    Route::post('/register-petani', [RegisterPetaniController::class, 'register'])->name('register-petani.post');
 
     // Lupa Password
     Route::get('/forgot-password',  [ForgotPasswordController::class, 'showForm'])->name('password.request');
@@ -58,6 +64,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/products',        [ProductController::class, 'index'])->name('products.index');
     Route::post('/products/save',  [ProductController::class, 'save'])->name('products.save');
     Route::get('/products/delete', [ProductController::class, 'delete'])->name('products.delete');
+    Route::post('/products/{product}/approve', [ProductController::class, 'approve'])->name('products.approve');
+    Route::post('/products/{product}/reject',  [ProductController::class, 'reject'])->name('products.reject');
 
     Route::get('/farmers',               [FarmerController::class, 'index'])->name('farmers.index');
     Route::get('/farmers/create',        [FarmerController::class, 'create'])->name('farmers.create');
@@ -74,6 +82,19 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
 Route::prefix('admin')->middleware(['auth', 'role:admin,kasir'])->name('admin.')->group(function () {
     Route::get('/kasir',        [KasirController::class, 'index'])->name('kasir');
     Route::post('/kasir/order', [KasirController::class, 'placeOrder'])->name('kasir.order');
+});
+
+// ─── Petani Lokal (hanya role petani) ──────────────────────────────────────────
+Route::prefix('petani')->middleware(['auth', 'role:petani'])->name('petani.')->group(function () {
+    Route::get('/',          [PetaniController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [PetaniController::class, 'dashboard']);
+
+    Route::get('/profil',  [PetaniController::class, 'profil'])->name('profil');
+    Route::post('/profil', [PetaniController::class, 'updateProfil'])->name('profil.update');
+
+    Route::get('/produk',         [PetaniController::class, 'produkIndex'])->name('produk.index');
+    Route::post('/produk/save',   [PetaniController::class, 'produkSave'])->name('produk.save');
+    Route::get('/produk/delete',  [PetaniController::class, 'produkDelete'])->name('produk.delete');
 });
 
 // ─── Halaman Publik ────────────────────────────────────────────────────────────

@@ -13,6 +13,8 @@
         @auth
             @if (auth()->user()->role === 'admin' || auth()->user()->role === 'kasir')
                 <a href="{{ route('admin.dashboard') }}" class="nav-link">Admin</a>
+            @elseif (auth()->user()->role === 'petani')
+                <a href="{{ route('petani.dashboard') }}" class="nav-link">Dashboard Petani</a>
             @endif
             <a href="{{ route('logout') }}"
                onclick="event.preventDefault(); document.getElementById('nav-logout-form').submit();"

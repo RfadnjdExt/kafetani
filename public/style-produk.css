@@ -7,6 +7,9 @@
 .badge{display:inline-block;padding:.15rem .55rem;font-size:.7rem;font-weight:500;border-radius:2px;letter-spacing:.04em;text-transform:uppercase}
 .badge-cafe{background:#EAF3DE;color:var(--green)}
 .badge-market{background:var(--amber-light);color:#7A4A10}
+.badge-pending{background:#FCF3D9;color:#8A6300}
+.badge-approved{background:#EAF3DE;color:var(--green)}
+.badge-rejected{background:#FCEBEB;color:#c0392b}
 /* Modal */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(42,31,18,.5);z-index:200;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}

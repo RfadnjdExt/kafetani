@@ -11,6 +11,7 @@ class MarketplaceController extends Controller
     {
         $products = Product::where('type', 'market')
                            ->where('stok', '>', 0)
+                           ->visibleToPublic()
                            ->with('farmer')
                            ->orderBy('nama_produk')
                            ->get();

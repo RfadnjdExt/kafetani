@@ -31,7 +31,14 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+
+            $fallback = match (Auth::user()->role) {
+                'admin', 'kasir' => route('admin.dashboard'),
+                'petani'         => route('petani.dashboard'),
+                default          => route('home'),
+            };
+
+            return redirect()->intended($fallback);
         }
 
         return back()->withErrors([

@@ -65,6 +65,22 @@ class DatabaseSeeder extends Seeder
                 ?? DB::table('farmers')->insertGetId($farmer);
         }
 
+        // Petani (akun contoh untuk demo alur registrasi & approval, FR-19/FR-23).
+        // Dihubungkan ke farmer 'Pak Budi' yang sudah ada di atas.
+        $petaniUser = DB::table('users')->where('email', 'petani@kafetani.com')->first();
+
+        $petaniUserId = $petaniUser->id ?? DB::table('users')->insertGetId([
+            'nama'     => 'Pak Budi',
+            'email'    => 'petani@kafetani.com',
+            'password' => Hash::make('petani123'),
+            'role'     => 'petani',
+        ]);
+
+        DB::table('farmers')
+            ->where('id', $farmerIds['Pak Budi'])
+            ->whereNull('user_id')
+            ->update(['user_id' => $petaniUserId]);
+
         // Products
         DB::table('product')->insertOrIgnore([
             // Menu Kafe
@@ -77,6 +93,14 @@ class DatabaseSeeder extends Seeder
             ['nama_produk' => 'Biji Kopi Arabica Gayo', 'harga' => 85000, 'stok' => 100, 'deskripsi' => 'Single origin, medium roast',            'farmer_id' => $farmerIds['Pak Budi'],  'gambar' => 'biji_kopi_arabica_gayo.webp', 'category_id' => 5, 'type' => 'market'],
             ['nama_produk' => 'Gula Aren Organik',       'harga' => 45000, 'stok' => 100, 'deskripsi' => 'Proses alami tanpa pemutih',             'farmer_id' => $farmerIds['Bu Sari'],   'gambar' => 'gula_aren.webp',              'category_id' => 5, 'type' => 'market'],
             ['nama_produk' => 'Susu Sapi Segar',         'harga' => 28000, 'stok' => 100, 'deskripsi' => 'Segar dipanen pagi hari',               'farmer_id' => $farmerIds['Pak Yusuf'], 'gambar' => 'susu_sapi_segar.webp',        'category_id' => 5, 'type' => 'market'],
+        ]);
+
+        // Produk contoh berstatus 'pending', didaftarkan oleh akun petani di
+        // atas, untuk mendemokan alur approval (FR-19 -> FR-23) begitu
+        // seeder selesai jalan.
+        DB::table('product')->insertOrIgnore([
+            ['nama_produk' => 'Kopi Honey Process Gayo', 'harga' => 95000,  'stok' => 40, 'deskripsi' => 'Proses honey, rasa manis alami dari lendir buah kopi',  'farmer_id' => $farmerIds['Pak Budi'], 'gambar' => null, 'category_id' => 5, 'type' => 'market', 'status' => 'pending'],
+            ['nama_produk' => 'Kopi Wine Process Gayo',  'harga' => 110000, 'stok' => 25, 'deskripsi' => 'Fermentasi panjang ala natural wine, aroma buah kuat', 'farmer_id' => $farmerIds['Pak Budi'], 'gambar' => null, 'category_id' => 5, 'type' => 'market', 'status' => 'pending'],
         ]);
     }
 }

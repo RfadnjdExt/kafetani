@@ -8,7 +8,13 @@
 @section('content')
 <div class="page-header">
   <h1>Manajemen Produk</h1>
-  <button class="btn-primary" onclick="openModal()">+ Tambah Produk</button>
+  <div style="display:flex;gap:.6rem;align-items:center;">
+    @if($pendingCount > 0)
+      <a href="{{ route('admin.products.index', ['type' => 'market', 'status' => 'pending']) }}"
+         class="badge badge-pending" style="text-decoration:none;">{{ $pendingCount }} produk petani menunggu review</a>
+    @endif
+    <button class="btn-primary" onclick="openModal()">+ Tambah Produk</button>
+  </div>
 </div>
 
 {{-- Filter tabs --}}
@@ -19,6 +25,8 @@
      class="type-tab {{ $type === 'cafe'   ? 'active' : '' }}">Menu Kafe</a>
   <a href="{{ route('admin.products.index', ['type' => 'market']) }}"
      class="type-tab {{ $type === 'market' ? 'active' : '' }}">Marketplace</a>
+  <a href="{{ route('admin.products.index', ['type' => 'market', 'status' => 'pending']) }}"
+     class="type-tab {{ request('status') === 'pending' ? 'active' : '' }}">Menunggu Review</a>
 </div>
 
 <table class="data-table">
@@ -28,6 +36,8 @@
       <th>Nama Produk</th>
       <th>Kategori</th>
       <th>Tipe</th>
+      <th>Petani</th>
+      <th>Status</th>
       <th>Harga</th>
       <th>Stok</th>
       <th>Aksi</th>
@@ -52,6 +62,14 @@
           {{ $prod->type }}
         </span>
       </td>
+      <td style="font-size:.83rem;">{{ $prod->farmer->name ?? '—' }}</td>
+      <td>
+        @if($prod->type === 'market' && $prod->farmer_id)
+          <span class="badge badge-{{ $prod->status ?? 'approved' }}">{{ $prod->status ?? 'approved' }}</span>
+        @else
+          <span class="badge badge-approved">approved</span>
+        @endif
+      </td>
       <td>Rp {{ number_format($prod->harga, 0, ',', '.') }}</td>
       <td>
         <span style="{{ $prod->stok < 5 ? 'color:#c0392b;font-weight:500;' : '' }}">
@@ -59,7 +77,18 @@
         </span>
       </td>
       <td>
-        <div style="display:flex;gap:.4rem;">
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
+          @if($prod->type === 'market' && $prod->farmer_id && $prod->status === 'pending')
+            <form method="POST" action="{{ route('admin.products.approve', $prod->id_product) }}">
+              @csrf
+              <button type="submit" class="btn-edit">Setujui</button>
+            </form>
+            <form method="POST" action="{{ route('admin.products.reject', $prod->id_product) }}"
+                  onsubmit="return confirm('Tolak produk ini?')">
+              @csrf
+              <button type="submit" class="btn-danger">Tolak</button>
+            </form>
+          @endif
           <button class="btn-edit"
             onclick="openModal({{ json_encode([
               'id'          => $prod->id_product,
@@ -79,7 +108,7 @@
       </td>
     </tr>
     @empty
-    <tr class="empty-row"><td colspan="7">Belum ada produk.</td></tr>
+    <tr class="empty-row"><td colspan="9">Belum ada produk.</td></tr>
     @endforelse
   </tbody>
 </table>

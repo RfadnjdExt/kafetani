@@ -27,6 +27,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Relasi: satu user (role: petani) punya satu profil farmer (1:1)
+     */
+    public function farmer()
+    {
+        return $this->hasOne(Farmer::class);
+    }
+
+    /**
      * Cek apakah user adalah admin
      */
     public function isAdmin(): bool
@@ -40,5 +48,13 @@ class User extends Authenticatable
     public function isKasirOrAdmin(): bool
     {
         return in_array($this->role, ['admin', 'kasir']);
+    }
+
+    /**
+     * Cek apakah user adalah petani lokal
+     */
+    public function isPetani(): bool
+    {
+        return $this->role === 'petani';
     }
 }

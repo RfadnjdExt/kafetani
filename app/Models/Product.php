@@ -23,6 +23,7 @@ class Product extends Model
         'gambar',
         'category_id',
         'type',
+        'status',
     ];
 
     protected $casts = [
@@ -46,6 +47,26 @@ class Product extends Model
     public function scopeAvailable($query)
     {
         return $query->where('stok', '>', 0);
+    }
+
+    /**
+     * Scope: hanya produk yang boleh tampil di halaman publik (Marketplace).
+     * Approved eksplisit, atau NULL (produk lama/diinput admin langsung yang
+     * tidak melalui alur approval sama sekali — dianggap auto-approved).
+     */
+    public function scopeVisibleToPublic($query)
+    {
+        return $query->where(function ($q) {
+            $q->where('status', 'approved')->orWhereNull('status');
+        });
+    }
+
+    /**
+     * Scope: hanya produk menunggu review admin
+     */
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
     }
 
     /**

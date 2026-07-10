@@ -45,7 +45,7 @@ class CatalogController extends Controller
      */
     public function marketplace(): JsonResponse
     {
-        $products = Product::where('type', 'market')->with('farmer')->get();
+        $products = Product::where('type', 'market')->visibleToPublic()->with('farmer')->get();
         $farmers  = Farmer::orderBy('name')->get();
 
         return response()->json([
