@@ -26,6 +26,29 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        // Pelanggan (akun contoh untuk demo alur registrasi, pemesanan
+        // online, dan riwayat order di sisi pelanggan).
+        DB::table('users')->insertOrIgnore([
+            [
+                'nama'     => 'Andi Saputra',
+                'email'    => 'andi@pelanggan.com',
+                'password' => Hash::make('pelanggan123'),
+                'role'     => 'user',
+            ],
+            [
+                'nama'     => 'Siti Rahma',
+                'email'    => 'siti@pelanggan.com',
+                'password' => Hash::make('pelanggan123'),
+                'role'     => 'user',
+            ],
+            [
+                'nama'     => 'Dedi Kurniawan',
+                'email'    => 'dedi@pelanggan.com',
+                'password' => Hash::make('pelanggan123'),
+                'role'     => 'user',
+            ],
+        ]);
+
         // Categories
         DB::table('categories')->insertOrIgnore([
             ['name' => 'Kopi',       'slug' => 'kopi'],
