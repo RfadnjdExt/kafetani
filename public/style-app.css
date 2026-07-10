@@ -115,10 +115,21 @@ body {
   cursor: pointer;
   letter-spacing: .04em;
   transition: background .2s;
+  border-radius: 6px;
 }
 
 .nav-cart:hover {
   background: var(--green2);
+}
+
+/* Desktop: tombol keranjang inline di navbar */
+.nav-cart-desktop {
+  display: flex;
+}
+
+/* Mobile: tombol keranjang floating — sembunyikan di desktop */
+.nav-cart-mobile {
+  display: none;
 }
 
 .cart-badge {
@@ -785,9 +796,86 @@ footer {
 /* -----------------------------------------------------------
    RESPONSIVE
 ----------------------------------------------------------- */
+
+/* ── Mobile nav toggle (hamburger) ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 110;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--brown);
+  border-radius: 2px;
+  transition: transform .25s, opacity .2s;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 @media (max-width: 968px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
+  }
+
+  .main-nav {
+    padding: 0 1.2rem;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--cream);
+    padding: 2rem 1.5rem;
+    gap: 1.2rem;
+    z-index: 99;
+    overflow-y: auto;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  /* Sembunyikan tombol cart desktop, tampilkan floating mobile */
+  .nav-cart-desktop {
+    display: none !important;
+  }
+
+  .nav-cart-mobile {
+    display: flex;
+    position: fixed;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    z-index: 98;
+    padding: .6rem 1.2rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.18);
+    font-size: .85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
 }
