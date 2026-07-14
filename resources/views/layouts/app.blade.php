@@ -47,17 +47,18 @@
     @else
       <a href="{{ route('login') }}" class="nav-link">Login</a>
     @endauth
-    <button class="nav-cart nav-cart-mobile" onclick="openCart()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
-           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           style="vertical-align:middle;margin-right:5px">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-      Keranjang <span class="cart-badge" id="cart-badge-mobile">0</span>
-    </button>
   </div>
+
+  <button class="nav-cart nav-cart-mobile" onclick="openCart()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
+         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         style="vertical-align:middle;margin-right:5px">
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <path d="M16 10a4 4 0 01-8 0"/>
+    </svg>
+    Keranjang <span class="cart-badge" id="cart-badge-mobile">0</span>
+  </button>
 
   <button class="nav-cart nav-cart-desktop" onclick="openCart()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
