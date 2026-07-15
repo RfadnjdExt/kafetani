@@ -112,10 +112,14 @@ class DatabaseSeeder extends Seeder
             ['nama_produk' => 'Cappuccino',            'harga' => 30000, 'stok' => 50, 'deskripsi' => 'Espresso, susu steam, dan foam lembut',         'farmer_id' => null, 'gambar' => 'cappuccino.webp',          'category_id' => 1, 'type' => 'cafe'],
             ['nama_produk' => 'Croissant Butter',      'harga' => 22000, 'stok' => 30, 'deskripsi' => 'Renyah di luar, lembut di dalam',               'farmer_id' => null, 'gambar' => 'croissant_butter.webp',    'category_id' => 3, 'type' => 'cafe'],
             ['nama_produk' => 'Chocolate Cake',        'harga' => 25000, 'stok' => 20, 'deskripsi' => 'Kue coklat lembab buatan sendiri',              'farmer_id' => null, 'gambar' => 'chocolate_cake.webp',      'category_id' => 4, 'type' => 'cafe'],
-            // Marketplace
-            ['nama_produk' => 'Biji Kopi Arabica Gayo', 'harga' => 85000, 'stok' => 100, 'deskripsi' => 'Single origin, medium roast',            'farmer_id' => $farmerIds['Pak Budi'],  'gambar' => 'biji_kopi_arabica_gayo.webp', 'category_id' => 5, 'type' => 'market'],
-            ['nama_produk' => 'Gula Aren Organik',       'harga' => 45000, 'stok' => 100, 'deskripsi' => 'Proses alami tanpa pemutih',             'farmer_id' => $farmerIds['Bu Sari'],   'gambar' => 'gula_aren.webp',              'category_id' => 5, 'type' => 'market'],
-            ['nama_produk' => 'Susu Sapi Segar',         'harga' => 28000, 'stok' => 100, 'deskripsi' => 'Segar dipanen pagi hari',               'farmer_id' => $farmerIds['Pak Yusuf'], 'gambar' => 'susu_sapi_segar.webp',        'category_id' => 5, 'type' => 'market'],
+            // Marketplace (status 'approved' eksplisit supaya langsung tampil
+            // di Marketplace publik begitu seeder selesai jalan — kolom
+            // 'status' default-nya 'pending' di migration, jadi kalau tidak
+            // diisi eksplisit, produk ini tidak akan lolos scope
+            // visibleToPublic()).
+            ['nama_produk' => 'Biji Kopi Arabica Gayo', 'harga' => 85000, 'stok' => 100, 'deskripsi' => 'Single origin, medium roast',            'farmer_id' => $farmerIds['Pak Budi'],  'gambar' => 'biji_kopi_arabica_gayo.webp', 'category_id' => 5, 'type' => 'market', 'status' => 'approved'],
+            ['nama_produk' => 'Gula Aren Organik',       'harga' => 45000, 'stok' => 100, 'deskripsi' => 'Proses alami tanpa pemutih',             'farmer_id' => $farmerIds['Bu Sari'],   'gambar' => 'gula_aren.webp',              'category_id' => 5, 'type' => 'market', 'status' => 'approved'],
+            ['nama_produk' => 'Susu Sapi Segar',         'harga' => 28000, 'stok' => 100, 'deskripsi' => 'Segar dipanen pagi hari',               'farmer_id' => $farmerIds['Pak Yusuf'], 'gambar' => 'susu_sapi_segar.webp',        'category_id' => 5, 'type' => 'market', 'status' => 'approved'],
         ]);
 
         // Produk contoh berstatus 'pending', didaftarkan oleh akun petani di
