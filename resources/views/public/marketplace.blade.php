@@ -15,7 +15,7 @@
   <div class="page-header">
     <div class="page-header-label">Kafetani · Marketplace</div>
     <h1 class="page-header-title">Marketplace Petani</h1>
-    <p class="page-header-sub">Beli langsung dari petani lokal  biji kopi, gula aren, dan produk segar pilihan</p>
+    <p class="page-header-sub">Beli langsung dari petani biji kopi lokal, gula aren, dan produk segar pilihan</p>
   </div>
 
   <div class="market-layout">
