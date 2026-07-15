@@ -55,6 +55,46 @@ DB_PASSWORD=
 composer run dev
 ```
 
+## Konfigurasi Production (Domain, Google Sign-In, Midtrans)
+
+Selain langkah Quickstart di atas, deployment production butuh beberapa konfigurasi tambahan di `.env`:
+
+### 1. Domain
+```env
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://domain-kamu.com
+```
+`APP_URL` dipakai oleh helper `asset()`/`asset_v()` untuk generate URL gambar (avatar petani, foto produk, dll) — pastikan ini sudah domain final sebelum deploy, karena beberapa cache Laravel (`view`, `config`) menyimpan hasil generate URL dan perlu di-clear ulang kalau `APP_URL` berubah:
+```bash
+php artisan config:clear
+php artisan view:clear
+```
+
+### 2. Google Sign-In
+Buat OAuth Client ID di [Google Cloud Console](https://console.cloud.google.com/apis/credentials) (tipe **Web application**), lalu isi:
+```env
+GOOGLE_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=xxxxxxxx
+GOOGLE_REDIRECT_URI=https://domain-kamu.com/auth/google/callback
+```
+`GOOGLE_REDIRECT_URI` di atas **harus** didaftarkan persis sama di Google Cloud Console pada bagian *Authorized redirect URIs*, kalau tidak, login Google akan gagal dengan error `redirect_uri_mismatch`.
+
+### 3. Midtrans
+Ambil Server Key & Client Key dari [Midtrans Dashboard](https://dashboard.midtrans.com/) (Settings → Access Keys):
+```env
+MIDTRANS_SERVER_KEY=Mid-server-xxxxxxxx
+MIDTRANS_CLIENT_KEY=Mid-client-xxxxxxxx
+MIDTRANS_IS_PRODUCTION=true
+MIDTRANS_SNAP_URL=https://app.midtrans.com/snap/snap.js
+```
+- Saat masih testing, biarkan `MIDTRANS_IS_PRODUCTION=false` dan `MIDTRANS_SNAP_URL` mengarah ke `app.sandbox.midtrans.com`, lalu pakai Server/Client Key dari mode **Sandbox** di dashboard (bukan Production) — server key sandbox dan production tidak bisa saling dicampur.
+- Di Midtrans Dashboard → **Settings → Configuration**, isi *Payment Notification URL* dengan:
+  ```
+  https://domain-kamu.com/midtrans/notification
+  ```
+  Endpoint ini menerima webhook status pembayaran (lihat `app/Http/Controllers/Api/MidtransController.php`); tanpa ini, status pesanan tidak akan otomatis berubah jadi `paid` setelah pelanggan membayar.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
