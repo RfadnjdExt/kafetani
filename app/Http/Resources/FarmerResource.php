@@ -20,7 +20,7 @@ class FarmerResource extends JsonResource
             'location'   => $this->location,
             'contact'    => $this->contact,
             'bio'        => $this->bio,
-            'avatar_url' => $request->getSchemeAndHttpHost() . '/img/farmers/' . $avatarFile,
+            'avatar_url' => $request->getSchemeAndHttpHost() . '/farmers/' . $avatarFile,
             'created_at' => optional($this->created_at)->toIso8601String(),
         ];
     }

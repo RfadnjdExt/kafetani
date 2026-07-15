@@ -78,11 +78,11 @@ class PetaniController extends Controller
 
         if ($request->hasFile('avatar')) {
             if ($farmer->avatar) {
-                @unlink(public_path('img/farmers/' . $farmer->avatar));
+                @unlink(public_path('farmers/' . $farmer->avatar));
             }
             $ext            = $request->file('avatar')->getClientOriginalExtension();
             $data['avatar'] = uniqid('farmer_', true) . '.' . strtolower($ext);
-            $request->file('avatar')->move(public_path('img/farmers'), $data['avatar']);
+            $request->file('avatar')->move(public_path('farmers'), $data['avatar']);
         }
 
         $farmer->update($data);

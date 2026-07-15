@@ -43,7 +43,7 @@ class FarmerController extends Controller
     public function destroy(Farmer $farmer): JsonResponse
     {
         if ($farmer->avatar) {
-            @unlink(public_path('img/farmers/' . $farmer->avatar));
+            @unlink(public_path('farmers/' . $farmer->avatar));
         }
 
         $farmer->delete();
@@ -67,10 +67,10 @@ class FarmerController extends Controller
         if ($request->hasFile('avatar')) {
             $ext      = $request->file('avatar')->getClientOriginalExtension();
             $filename = uniqid('farmer_', true) . '.' . strtolower($ext);
-            $request->file('avatar')->move(public_path('img/farmers'), $filename);
+            $request->file('avatar')->move(public_path('farmers'), $filename);
 
             if ($farmer && $farmer->avatar) {
-                @unlink(public_path('img/farmers/' . $farmer->avatar));
+                @unlink(public_path('farmers/' . $farmer->avatar));
             }
 
             $data['avatar'] = $filename;

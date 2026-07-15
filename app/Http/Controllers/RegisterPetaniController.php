@@ -60,7 +60,7 @@ class RegisterPetaniController extends Controller
             if ($request->hasFile('avatar')) {
                 $ext        = $request->file('avatar')->getClientOriginalExtension();
                 $avatarFile = uniqid('farmer_', true) . '.' . strtolower($ext);
-                $request->file('avatar')->move(public_path('img/farmers'), $avatarFile);
+                $request->file('avatar')->move(public_path('farmers'), $avatarFile);
             }
 
             Farmer::create([

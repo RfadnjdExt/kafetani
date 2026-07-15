@@ -34,7 +34,7 @@ class Farmer extends Model
     public function getAvatarUrlAttribute(): string
     {
         return $this->avatar
-            ? asset('img/farmers/' . $this->avatar)
-            : asset('img/farmers/default.webp');
+            ? asset('farmers/' . $this->avatar)
+            : asset('farmers/default.webp');
     }
 }
