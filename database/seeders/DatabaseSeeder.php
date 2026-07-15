@@ -129,8 +129,8 @@ class DatabaseSeeder extends Seeder
         // atas, untuk mendemokan alur approval (FR-19 -> FR-23) begitu
         // seeder selesai jalan.
         DB::table('product')->insertOrIgnore([
-            ['nama_produk' => 'Kopi Honey Process Gayo', 'harga' => 95000,  'stok' => 40, 'deskripsi' => 'Proses honey, rasa manis alami dari lendir buah kopi',  'farmer_id' => $farmerIds['Pak Budi'], 'gambar' => null, 'category_id' => 5, 'type' => 'market', 'status' => 'pending'],
-            ['nama_produk' => 'Kopi Wine Process Gayo',  'harga' => 110000, 'stok' => 25, 'deskripsi' => 'Fermentasi panjang ala natural wine, aroma buah kuat', 'farmer_id' => $farmerIds['Pak Budi'], 'gambar' => null, 'category_id' => 5, 'type' => 'market', 'status' => 'pending'],
+            ['nama_produk' => 'Kopi Honey Process Gayo', 'harga' => 95000,  'stok' => 40, 'deskripsi' => 'Proses honey, rasa manis alami dari lendir buah kopi',  'farmer_id' => $farmerIds['Pak Budi'], 'gambar' => 'kopi_honey_process_gayo.webp', 'category_id' => 5, 'type' => 'market', 'status' => 'pending'],
+            ['nama_produk' => 'Kopi Wine Process Gayo',  'harga' => 110000, 'stok' => 25, 'deskripsi' => 'Fermentasi panjang ala natural wine, aroma buah kuat', 'farmer_id' => $farmerIds['Pak Budi'], 'gambar' => 'kopi_wine_process_gayo.webp',  'category_id' => 5, 'type' => 'market', 'status' => 'pending'],
         ]);
     }
 }
