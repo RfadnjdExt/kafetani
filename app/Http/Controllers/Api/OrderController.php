@@ -207,8 +207,15 @@ class OrderController extends Controller
                 'name'     => 'Biaya Layanan',
             ];
 
+            // Order_id yang dikirim ke Midtrans harus unik selamanya untuk merchant
+            // ini (bukan cuma unik di DB kita), jadi jangan pakai $order->id mentah —
+            // itu bisa collide lagi kalau tabel orders pernah di-reset/reseed.
+            // Tambahkan komponen acak agar tetap unik meski primary key berulang.
+            $midtransOrderId = 'ORDER-' . $order->id . '-' . time() . '-' . substr(uniqid(), -6);
+            $order->update(['midtrans_order_id' => $midtransOrderId]);
+
             $transactionDetails = [
-                'order_id'     => (string) $order->id,
+                'order_id'     => $midtransOrderId,
                 'gross_amount' => $realTotal,
             ];
 

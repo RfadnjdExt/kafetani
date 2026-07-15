@@ -32,8 +32,10 @@ class MidtransController extends Controller
         $orderId = $notification->order_id;
         $fraudStatus = $notification->fraud_status;
 
-        // Cari order berdasarkan id
-        $order = Order::with('items.product')->find($orderId);
+        // Cari order berdasarkan midtrans_order_id (bukan primary key —
+        // order_id yang dikirim ke Midtrans adalah ID unik per percobaan
+        // transaksi, lihat OrderController::store()).
+        $order = Order::with('items.product')->where('midtrans_order_id', $orderId)->first();
 
         if (!$order) {
             Log::warning("Midtrans Notification: Order ID {$orderId} not found.");
