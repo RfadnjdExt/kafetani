@@ -16,7 +16,7 @@
 
     <div class="form-group" style="display:flex;align-items:center;gap:1rem;">
       <div style="width:64px;height:64px;border-radius:50%;overflow:hidden;background:var(--cream2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <img id="img-preview" src="{{ $farmer->avatar_url }}" alt="{{ $farmer->name }}" style="width:100%;height:100%;object-fit:cover;">
+        <img id="avatar-preview" src="{{ $farmer->avatar_url }}" alt="{{ $farmer->name }}" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div style="flex:1;">
         <label>Foto Profil</label>
@@ -58,7 +58,7 @@
 function previewImg(input) {
   if (!input.files[0]) return;
   const reader = new FileReader();
-  reader.onload = e => { document.getElementById('img-preview').src = e.target.result; };
+  reader.onload = e => { document.getElementById('avatar-preview').src = e.target.result; };
   reader.readAsDataURL(input.files[0]);
 }
 </script>
