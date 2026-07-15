@@ -38,6 +38,9 @@
       @if(auth()->user()->isKasirOrAdmin())
         <a href="{{ route('admin.kasir') }}" class="nav-link {{ request()->routeIs('admin.kasir*') ? 'active' : '' }}">Kasir POS</a>
       @endif
+      @if(auth()->user()->isPetani())
+        <a href="{{ route('petani.dashboard') }}" class="nav-link {{ request()->routeIs('petani.*') ? 'active' : '' }}">Dashboard Petani</a>
+      @endif
       <a href="{{ route('logout') }}"
          onclick="event.preventDefault(); document.getElementById('nav-logout-form').submit();"
          class="nav-link">Logout</a>
