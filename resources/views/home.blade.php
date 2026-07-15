@@ -28,28 +28,28 @@
     <p class="section-sub">Kami percaya pada transparansi — dari kebun ke cangkir Anda.</p>
     <div class="features-grid">
         <div class="feature-card">
-            <img src="{{ asset('about/bahan_segar.webp') }}" alt="Bahan Segar" class="feature-img">
+            <img src="{{ asset_v('about/bahan_segar.webp') }}" alt="Bahan Segar" class="feature-img">
             <div class="feature-body">
                 <h3>Bahan Selalu Segar</h3>
                 <p>Setiap bahan baku dipilih langsung dari petani lokal berpengalaman setiap harinya.</p>
             </div>
         </div>
         <div class="feature-card">
-            <img src="{{ asset('about/petani_lokal.webp') }}" alt="Petani Lokal" class="feature-img">
+            <img src="{{ asset_v('about/petani_lokal.webp') }}" alt="Petani Lokal" class="feature-img">
             <div class="feature-body">
                 <h3>Dukung Petani Lokal</h3>
                 <p>Setiap pembelian Anda membantu petani lokal mendapatkan harga yang adil dan layak.</p>
             </div>
         </div>
         <div class="feature-card">
-            <img src="{{ asset('about/pesan_online.webp') }}" alt="Pesan Online" class="feature-img">
+            <img src="{{ asset_v('about/pesan_online.webp') }}" alt="Pesan Online" class="feature-img">
             <div class="feature-body">
                 <h3>Mudah Dipesan</h3>
                 <p>Pesan produk segar dari marketplace kami dan dikirim langsung ke pintu Anda.</p>
             </div>
         </div>
         <div class="feature-card">
-            <img src="{{ asset('about/bawa_pulang.webp') }}" alt="Bawa Pulang" class="feature-img">
+            <img src="{{ asset_v('about/bawa_pulang.webp') }}" alt="Bawa Pulang" class="feature-img">
             <div class="feature-body">
                 <h3>Dine-In atau Bawa Pulang</h3>
                 <p>Fleksibel sesuai kebutuhan Anda — makan di tempat atau nikmati di rumah.</p>
@@ -63,27 +63,24 @@
     <span class="section-label">Mitra Kami</span>
     <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);">Petani Pilihan Kafetani</h2>
     <p class="section-sub">Kenali para petani yang menanam dengan penuh cinta untuk Anda.</p>
-    @php
-        $farmerImg = fn (string $file) => asset("farmers/{$file}") . '?v=' . (is_file(public_path("farmers/{$file}")) ? md5_file(public_path("farmers/{$file}")) : '1');
-    @endphp
     <div class="farmers-row">
         <div class="farmer-item">
-            <img src="{{ $farmerImg('pak_budi.webp') }}" alt="Pak Budi">
+            <img src="{{ asset_v('farmers/pak_budi.webp') }}" alt="Pak Budi">
             <div class="farmer-item-name">Pak Budi</div>
             <div class="farmer-item-loc">Gayo, Aceh</div>
         </div>
         <div class="farmer-item">
-            <img src="{{ $farmerImg('bu_sari.webp') }}" alt="Bu Sari">
+            <img src="{{ asset_v('farmers/bu_sari.webp') }}" alt="Bu Sari">
             <div class="farmer-item-name">Bu Sari</div>
             <div class="farmer-item-loc">Temanggung, Jateng</div>
         </div>
         <div class="farmer-item">
-            <img src="{{ $farmerImg('pak_yusuf.webp') }}" alt="Pak Yusuf">
+            <img src="{{ asset_v('farmers/pak_yusuf.webp') }}" alt="Pak Yusuf">
             <div class="farmer-item-name">Pak Yusuf</div>
             <div class="farmer-item-loc">Pangalengan, Jabar</div>
         </div>
         <div class="farmer-item">
-            <img src="{{ $farmerImg('semua_petani.webp') }}" alt="Semua Petani">
+            <img src="{{ asset_v('farmers/semua_petani.webp') }}" alt="Semua Petani">
             <div class="farmer-item-name">& Banyak Lagi</div>
             <div class="farmer-item-loc">Dari seluruh Indonesia</div>
         </div>
