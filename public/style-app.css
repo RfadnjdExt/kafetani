@@ -910,6 +910,7 @@ footer {
     border-right: none;
     border-bottom: 1px solid var(--border);
     min-height: auto;
+    min-width: 0;
     padding: 1rem 1.2rem;
   }
 
@@ -917,6 +918,8 @@ footer {
     display: flex;
     flex-wrap: nowrap;
     gap: .6rem;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: .2rem;
