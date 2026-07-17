@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\KasirController;
+use App\Http\Controllers\Admin\LaporanKeuanganController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TableController;
@@ -102,6 +103,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::post('/meja/{table}/toggle', [TableController::class, 'toggle'])->name('tables.toggle');
     Route::delete('/meja/{table}',     [TableController::class, 'destroy'])->name('tables.destroy');
     Route::get('/meja/{table}/qr',     [TableController::class, 'qr'])->name('tables.qr');
+
+    // Laporan keuangan bulanan (SRS: efisiensi pengelolaan laporan keuangan bulanan)
+    Route::prefix('laporan-keuangan')->name('laporan.')->group(function () {
+        Route::get('/',          [LaporanKeuanganController::class, 'index'])->name('index');
+        Route::get('/export/csv', [LaporanKeuanganController::class, 'exportCsv'])->name('export.csv');
+        Route::get('/export/pdf', [LaporanKeuanganController::class, 'exportPdf'])->name('export.pdf');
+    });
 });
 
 // ─── Kasir (admin dan kasir) ───────────────────────────────────────────────────

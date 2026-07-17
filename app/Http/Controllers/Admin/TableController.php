@@ -15,7 +15,15 @@ class TableController extends Controller
      */
     public function index()
     {
-        $tables = Table::orderByRaw('CAST(nomor AS INTEGER)')->orderBy('nomor')->get();
+        // Nomor meja disimpan sebagai string supaya bisa "VIP-1", dsb, tapi
+        // kalau isinya angka biasa kita mau urut numerik (1, 2, ..., 10),
+        // bukan alfabetis (1, 10, 2, ...). CAST(... AS INTEGER) di query
+        // cuma valid di SQLite — di MySQL tipe itu tidak dikenal (harus
+        // SIGNED/UNSIGNED), jadi query meledak di production. Diurutkan di
+        // PHP saja supaya portable di semua driver database.
+        $tables = Table::orderBy('nomor')->get()
+            ->sortBy(fn($table) => is_numeric($table->nomor) ? (int) $table->nomor : PHP_INT_MAX)
+            ->values();
 
         return view('admin.tables.index', compact('tables'));
     }

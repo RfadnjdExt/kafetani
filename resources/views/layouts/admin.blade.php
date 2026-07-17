@@ -51,6 +51,9 @@
       <a href="{{ route('admin.tables.index') }}" class="{{ request()->routeIs('admin.tables*') ? 'active' : '' }}">
         <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Meja &amp; QR
       </a>
+      <a href="{{ route('admin.laporan.index') }}" class="{{ request()->routeIs('admin.laporan*') ? 'active' : '' }}">
+        <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Laporan Keuangan
+      </a>
       @endif
       <a href="{{ route('admin.kasir') }}" class="{{ request()->routeIs('admin.kasir*') ? 'active' : '' }}">
         <svg class="icon-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Kasir POS
