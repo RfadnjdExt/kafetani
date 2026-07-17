@@ -11,10 +11,21 @@
 @stack('styles')
 </head>
 <body>
-<div class="admin-layout">
+<div class="admin-layout" id="adminLayout">
+
+  {{-- Mobile topbar --}}
+  <header class="admin-topbar">
+    <button type="button" class="admin-burger" id="adminBurger" aria-label="Buka menu" aria-expanded="false" aria-controls="adminSidebar">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <span class="admin-topbar-title">Kafetani Admin</span>
+  </header>
+
+  {{-- Overlay (mobile) --}}
+  <div class="admin-overlay" id="adminOverlay"></div>
 
   {{-- Sidebar --}}
-  <aside class="admin-sidebar">
+  <aside class="admin-sidebar" id="adminSidebar">
     <h2>Kafetani Admin</h2>
     <nav class="admin-nav">
       <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
@@ -58,6 +69,37 @@
   </main>
 
 </div>
+<script>
+(function(){
+  var burger  = document.getElementById('adminBurger');
+  var sidebar = document.getElementById('adminSidebar');
+  var overlay = document.getElementById('adminOverlay');
+
+  function openSidebar(){
+    sidebar.classList.add('is-open');
+    overlay.classList.add('is-visible');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSidebar(){
+    sidebar.classList.remove('is-open');
+    overlay.classList.remove('is-visible');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', function(){
+    sidebar.classList.contains('is-open') ? closeSidebar() : openSidebar();
+  });
+  overlay.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', closeSidebar);
+  });
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 900) closeSidebar();
+  });
+})();
+</script>
 @stack('scripts')
 </body>
 </html>

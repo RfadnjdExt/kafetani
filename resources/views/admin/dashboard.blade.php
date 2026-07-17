@@ -66,8 +66,10 @@
   .chart-card{
     background:#fff;
     border:1px solid var(--border, #e5e5e5);
-    border-radius:.5rem;
+    border-radius:.85rem;
     padding:1.25rem;
+    box-shadow:0 2px 10px rgba(59,42,26,.06);
+    min-width:0;
   }
   .chart-card h3{
     font-size:.9rem;
@@ -75,9 +77,13 @@
     margin-bottom:.9rem;
     color:var(--text-mid, #555);
   }
+  .chart-card canvas{
+    max-width:100%;
+  }
   @media (max-width: 900px){
-    .charts-grid{ grid-template-columns:1fr; }
+    .charts-grid{ grid-template-columns:1fr; gap:1rem; }
     .chart-card[style]{ grid-column:span 1 !important; }
+    .chart-card{ padding:1rem; border-radius:.7rem; }
   }
 </style>
 @endpush
