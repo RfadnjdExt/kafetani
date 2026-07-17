@@ -61,4 +61,97 @@
     @endforelse
   </tbody>
 </table>
+
+<h2 style="font-family:var(--ff-display);font-weight:300;font-size:1.5rem;color:var(--brown);margin:2rem 0 1rem;">Tren Kebutuhan Stok</h2>
+<div class="charts-grid">
+  <div class="chart-card" style="grid-column: span 2;">
+    <h3>Tren Permintaan (14 Hari Terakhir)</h3>
+    <canvas id="chartStockDemand" height="90"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Sisa Stok per Produk</h3>
+    <canvas id="chartStokProduk" height="90"></canvas>
+  </div>
+</div>
 @endsection
+
+@push('styles')
+<style>
+  .charts-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.25rem;
+    margin-top:1.5rem;
+  }
+  .chart-card{
+    background:#fff;
+    border:1px solid var(--border, #e5e5e5);
+    border-radius:.85rem;
+    padding:1.25rem;
+    box-shadow:0 2px 10px rgba(59,42,26,.06);
+    min-width:0;
+  }
+  .chart-card h3{
+    font-size:.9rem;
+    font-weight:500;
+    margin-bottom:.9rem;
+    color:var(--text-mid, #555);
+  }
+  .chart-card canvas{
+    max-width:100%;
+  }
+  @media (max-width: 900px){
+    .charts-grid{ grid-template-columns:1fr; gap:1rem; }
+    .chart-card[style]{ grid-column:span 1 !important; }
+    .chart-card{ padding:1rem; border-radius:.7rem; }
+  }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+  const stockDemandData = @json($charts['stock_demand_trend']);
+  const stokProdukData  = @json($charts['stok_per_produk']);
+
+  // Chart 1: Tren Kebutuhan Stok (line) — unit terjual per hari
+  new Chart(document.getElementById('chartStockDemand'), {
+    type: 'line',
+    data: {
+      labels: stockDemandData.map(d => d.label),
+      datasets: [{
+        label: 'Unit Terjual',
+        data: stockDemandData.map(d => d.terjual),
+        borderColor: '#3B5C42',
+        backgroundColor: 'rgba(59,92,66,0.1)',
+        tension: 0.3,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+    }
+  });
+
+  // Chart 2: Sisa Stok per Produk (bar) — urut dari yang paling menipis
+  new Chart(document.getElementById('chartStokProduk'), {
+    type: 'bar',
+    data: {
+      labels: stokProdukData.map(p => p.nama),
+      datasets: [{
+        label: 'Sisa Stok',
+        data: stokProdukData.map(p => p.stok),
+        backgroundColor: '#C79A2C',
+      }]
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+    }
+  });
+</script>
+@endpush

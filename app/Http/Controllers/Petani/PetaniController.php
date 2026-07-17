@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Petani;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Farmer;
+use App\Models\OrderItem;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -48,7 +50,35 @@ class PetaniController extends Controller
 
         $produkTerbaru = $products->sortByDesc('id_product')->take(5);
 
-        return view('petani.dashboard', compact('farmer', 'stats', 'produkTerbaru'));
+        // --- Chart: Tren kebutuhan stok (permintaan 14 hari terakhir) ---
+        // Menampilkan jumlah unit produk milik petani ini yang terjual per
+        // hari, supaya petani bisa memperkirakan seberapa cepat stok
+        // habis dan kapan perlu menyiapkan stok baru (SRS 3.4.3).
+        $productIds = $products->pluck('id_product');
+
+        $stockDemandTrend = [];
+        for ($i = 13; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i);
+            $stockDemandTrend[] = [
+                'label'    => $date->translatedFormat('d M'),
+                'terjual'  => (int) OrderItem::whereIn('product_id', $productIds)
+                    ->whereHas('order', fn ($q) => $q->where('status', 'completed')->whereDate('created_at', $date))
+                    ->sum('quantity'),
+            ];
+        }
+
+        // --- Sisa stok saat ini per produk, urut dari yang paling menipis ---
+        $stokPerProduk = $products->sortBy('stok')->take(8)->map(fn ($p) => [
+            'nama' => $p->nama_produk,
+            'stok' => (int) $p->stok,
+        ])->values();
+
+        $charts = [
+            'stock_demand_trend' => $stockDemandTrend,
+            'stok_per_produk'    => $stokPerProduk,
+        ];
+
+        return view('petani.dashboard', compact('farmer', 'stats', 'produkTerbaru', 'charts'));
     }
 
     /**
