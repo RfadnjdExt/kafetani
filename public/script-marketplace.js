@@ -1,4 +1,4 @@
-// Halaman Marketplace Publik — resources/views/public/marketplace.blade.php
+// Halaman Marketplace Publik - resources/views/public/marketplace.blade.php
 document.addEventListener('DOMContentLoaded', function () {
   const farmerCards = document.querySelectorAll('.farmer-card');
   const prodCards   = document.querySelectorAll('.product-card[data-farmer-id]');

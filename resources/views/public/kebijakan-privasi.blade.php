@@ -38,7 +38,7 @@
 
     <div class="prose-section">
       <h2>5. Pembayaran melalui Pihak Ketiga</h2>
-      <p>Transaksi pembayaran diproses melalui penyedia layanan pembayaran pihak ketiga (Midtrans). Kafetani tidak menyimpan data kartu atau rekening anda — seluruh proses pembayaran ditangani langsung oleh penyedia layanan tersebut sesuai standar keamanan mereka.</p>
+      <p>Transaksi pembayaran diproses melalui penyedia layanan pembayaran pihak ketiga (Midtrans). Kafetani tidak menyimpan data kartu atau rekening anda - seluruh proses pembayaran ditangani langsung oleh penyedia layanan tersebut sesuai standar keamanan mereka.</p>
     </div>
 
     <div class="prose-section">

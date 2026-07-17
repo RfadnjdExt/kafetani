@@ -1,4 +1,4 @@
-// Halaman Admin Kasir POS — resources/views/admin/kasir.blade.php
+// Halaman Admin Kasir POS - resources/views/admin/kasir.blade.php
 let cart = [];
 let activeCat = 'Semua';
 

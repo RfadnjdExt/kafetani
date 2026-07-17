@@ -1,4 +1,4 @@
-// Halaman Form Petani (Tambah/Edit) — resources/views/admin/farmers/form.blade.php
+// Halaman Form Petani (Tambah/Edit) - resources/views/admin/farmers/form.blade.php
 function previewAvatar(input) {
   if (!input.files || !input.files[0]) return;
   const reader = new FileReader();

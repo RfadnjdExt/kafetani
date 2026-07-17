@@ -1,4 +1,4 @@
-/* Halaman Admin Pesanan — resources/views/admin/orders/index.blade.php */
+/* Halaman Admin Pesanan - resources/views/admin/orders/index.blade.php */
 
 .status-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.8rem;flex-wrap:wrap}
 .status-tab{padding:.7rem 1.1rem;font-size:.82rem;cursor:pointer;color:var(--text-mid);border-bottom:2px solid transparent;text-decoration:none;white-space:nowrap;transition:all .2s}

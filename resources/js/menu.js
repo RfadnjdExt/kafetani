@@ -1,4 +1,4 @@
-// menu.js — filter tab kategori untuk halaman Menu Kafe
+// menu.js - filter tab kategori untuk halaman Menu Kafe
 // Logika keranjang ditangani oleh app.js
 document.addEventListener('DOMContentLoaded', function () {
   const tabs  = document.querySelectorAll('.filter-tab');

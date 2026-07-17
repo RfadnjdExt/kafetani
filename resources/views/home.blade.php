@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Kafetani — Farm to Table')
+@section('title', 'Kafetani - Farm to Table')
 
 @push('styles')
 <meta name="description" content="Kafetani menghadirkan produk segar dari petani lokal langsung ke meja anda.">
@@ -25,7 +25,7 @@
 <section class="features">
     <span class="section-label">Keunggulan Kami</span>
     <h2 class="section-title">Mengapa Kafetani?</h2>
-    <p class="section-sub">Kami percaya pada transparansi — dari kebun ke cangkir anda.</p>
+    <p class="section-sub">Kami percaya pada transparansi - dari kebun ke cangkir anda.</p>
     <div class="features-grid">
         <div class="feature-card">
             <img src="{{ asset_v('about/bahan_segar.webp') }}" alt="Bahan Segar" class="feature-img">
@@ -52,7 +52,7 @@
             <img src="{{ asset_v('about/bawa_pulang.webp') }}" alt="Bawa Pulang" class="feature-img">
             <div class="feature-body">
                 <h3>Makan di Tempat atau Bawa Pulang</h3>
-                <p>Fleksibel sesuai kebutuhan anda — makan di tempat atau nikmati di rumah.</p>
+                <p>Fleksibel sesuai kebutuhan anda - makan di tempat atau nikmati di rumah.</p>
             </div>
         </div>
     </div>

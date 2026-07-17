@@ -62,7 +62,7 @@
           {{ $prod->type }}
         </span>
       </td>
-      <td style="font-size:.83rem;">{{ $prod->farmer->name ?? '—' }}</td>
+      <td style="font-size:.83rem;">{{ $prod->farmer->name ?? '-' }}</td>
       <td>
         @if($prod->type === 'market' && $prod->farmer_id)
           <span class="badge badge-{{ $prod->status ?? 'approved' }}">{{ $prod->status ?? 'approved' }}</span>
@@ -166,9 +166,9 @@
       <div class="form-group">
         <label>Petani (opsional, khusus marketplace)</label>
         <select name="farmer_id" id="f-farmer">
-          <option value="">— Tidak ada —</option>
+          <option value="">Tidak ada</option>
           @foreach($farmers as $farmer)
-            <option value="{{ $farmer->id }}">{{ $farmer->name }} — {{ $farmer->location }}</option>
+            <option value="{{ $farmer->id }}">{{ $farmer->name }} - {{ $farmer->location }}</option>
           @endforeach
         </select>
       </div>

@@ -105,7 +105,7 @@
                         <?php endif; ?>
                     </td>
                     <td><?= htmlspecialchars($p['nama_produk']) ?></td>
-                    <td><?= htmlspecialchars($p['cat_name'] ?? '—') ?></td>
+                    <td><?= htmlspecialchars($p['cat_name'] ?? '-') ?></td>
                     <td><span class="<?= $p['type']==='cafe' ? 'type-cafe' : 'type-market' ?>"><?= $p['type']==='cafe' ? 'Kafe' : 'Market' ?></span></td>
                     <td>Rp <?= number_format($p['harga'], 0, ',', '.') ?></td>
                     <td class="<?= $p['stok'] <= 5 ? 'stok-low' : '' ?>"><?= (int)$p['stok'] ?></td>
@@ -146,7 +146,7 @@
         <div class="form-group">
           <label>Kategori</label>
           <select name="category_id" id="f-cat">
-            <option value="">— Pilih —</option>
+            <option value="">Pilih</option>
             <?php foreach ($categories as $c): ?>
               <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['name']) ?></option>
             <?php endforeach; ?>

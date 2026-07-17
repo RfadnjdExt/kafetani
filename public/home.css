@@ -1,5 +1,5 @@
 /* ===========================================================
-   KAFETANI — Halaman Home (hero, fitur, petani, CTA)
+   KAFETANI - Halaman Home (hero, fitur, petani, CTA)
    Dipakai oleh: home.blade.php
    =========================================================== */
 
@@ -234,7 +234,7 @@
     }
 
     /* ===========================================================
-       RESPONSIVE — Tablet & Mobile
+       RESPONSIVE - Tablet & Mobile
        =========================================================== */
     @media (max-width: 768px) {
         .hero {

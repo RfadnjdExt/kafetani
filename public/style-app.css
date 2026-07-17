@@ -1,5 +1,5 @@
 /* ===========================================================
-   KAFETANI — Layout Publik (navbar, footer, cart, product grid)
+   KAFETANI - Layout Publik (navbar, footer, cart, product grid)
    Dipakai oleh: layouts/app.blade.php (semua halaman publik)
    =========================================================== */
 
@@ -134,7 +134,7 @@ body {
   display: flex;
 }
 
-/* Mobile: tombol keranjang floating — sembunyikan di desktop */
+/* Mobile: tombol keranjang floating - sembunyikan di desktop */
 .nav-cart-mobile {
   display: none;
 }
@@ -911,7 +911,7 @@ footer {
 }
 
 /* -----------------------------------------------------------
-   MARKETPLACE — responsive (tablet & mobile)
+   MARKETPLACE - responsive (tablet & mobile)
 ----------------------------------------------------------- */
 @media (max-width: 900px) {
   .market-layout {

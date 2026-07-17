@@ -1,5 +1,5 @@
 /* ===========================================================
-   KAFETANI — Layout Admin (sidebar, tabel, tombol, alert)
+   KAFETANI - Layout Admin (sidebar, tabel, tombol, alert)
    Dipakai oleh: layouts/admin.blade.php (semua halaman admin)
    =========================================================== */
 
@@ -292,7 +292,7 @@ body {
 }
 
 /* ===========================================================
-   Responsive — tablet & mobile
+   Responsive - tablet & mobile
    =========================================================== */
 
 @media (max-width: 900px) {

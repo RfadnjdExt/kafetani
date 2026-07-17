@@ -1,4 +1,4 @@
-// Halaman Menu Kafe — resources/views/public/menu.blade.php
+// Halaman Menu Kafe - resources/views/public/menu.blade.php
 document.addEventListener('DOMContentLoaded', function () {
   const tabs  = document.querySelectorAll('.filter-tab');
   const cards = document.querySelectorAll('.product-card[data-cat]');

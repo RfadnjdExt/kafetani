@@ -1,4 +1,4 @@
-// Halaman Petani — resources/views/petani/produk/index.blade.php
+// Halaman Petani - resources/views/petani/produk/index.blade.php
 function openModal(data) {
   const modal = document.getElementById('product-modal');
   if (data) {

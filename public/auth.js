@@ -1,4 +1,4 @@
-// Halaman Auth (login, register, reset-password) — resources/views/auth/*.blade.php
+// Halaman Auth (login, register, reset-password) - resources/views/auth/*.blade.php
 
 function togglePwd(id, btn) {
   const input = document.getElementById(id);

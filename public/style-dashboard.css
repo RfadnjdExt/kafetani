@@ -1,5 +1,5 @@
 /* ===========================================================
-   KAFETANI — Halaman Admin Dashboard
+   KAFETANI - Halaman Admin Dashboard
    Dipakai oleh: admin/dashboard.blade.php
    =========================================================== */
 
@@ -59,7 +59,7 @@
 }
 
 /* ===========================================================
-   Responsive — tablet & mobile
+   Responsive - tablet & mobile
    =========================================================== */
 
 @media (max-width: 900px) {

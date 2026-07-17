@@ -1,4 +1,4 @@
-// Halaman Admin Manajemen Produk — resources/views/admin/products/index.blade.php
+// Halaman Admin Manajemen Produk - resources/views/admin/products/index.blade.php
 function openModal(data) {
   const modal = document.getElementById('product-modal');
   if (data) {
