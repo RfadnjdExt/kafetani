@@ -15,7 +15,7 @@ class OrderController extends Controller
     {
         $statusFilter = $request->query('status', 'all');
 
-        $orders = Order::with(['user', 'items.product'])
+        $orders = Order::with(['user', 'table', 'items.product'])
             ->when($statusFilter !== 'all', fn($q) => $q->where('status', $statusFilter))
             ->orderByDesc('created_at')
             ->get();

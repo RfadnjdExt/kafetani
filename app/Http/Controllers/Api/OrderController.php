@@ -7,6 +7,7 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Table;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -74,9 +75,107 @@ class OrderController extends Controller
             'total'       => ['nullable', 'integer', 'min:0'],
         ]);
 
-        $cart    = $data['cart'];
-        $userId  = auth()->id();
+        [$lineItems, $realTotal, $error] = $this->buildLineItems($data['cart']);
+        if ($error) {
+            return response()->json(['success' => false, 'message' => $error], 422);
+        }
 
+        return $this->createOrderAndCharge(
+            orderAttributes: [
+                'user_id' => auth()->id(),
+                'type'    => 'mixed',
+                'source'  => 'online',
+            ],
+            lineItems: $lineItems,
+            realTotal: $realTotal,
+            customerDetails: [
+                'first_name' => auth()->user()->nama,
+                'email'      => auth()->user()->email,
+            ],
+        );
+    }
+
+    /**
+     * POST /api/orders/guest
+     * Pemesanan mandiri via QR meja (SRS 3.4.1) — pelanggan scan QR di meja,
+     * lalu checkout tanpa harus login. Kalau kebetulan sedang login, order
+     * tetap ditautkan ke akunnya; kalau tidak, order tercatat sebagai guest
+     * order dengan nama yang diisi manual.
+     *
+     * Payload JSON:
+     *   { cart: [...], total: number, meja: string, guest_name?: string, guest_phone?: string }
+     */
+    public function storeGuest(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'cart'          => ['required', 'array', 'min:1'],
+            'cart.*.id'     => ['required'],
+            'cart.*.qty'    => ['required', 'integer', 'min:1'],
+            'cart.*.name'   => ['nullable', 'string'],
+            'total'         => ['nullable', 'integer', 'min:0'],
+            'meja'          => ['required', 'string', 'max:20'],
+            'guest_name'    => ['nullable', 'string', 'max:100'],
+            'guest_phone'   => ['nullable', 'string', 'max:30'],
+        ]);
+
+        $table = Table::where('nomor', $data['meja'])->where('is_active', true)->first();
+        if (! $table) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Meja tidak ditemukan atau sudah tidak aktif. Coba scan ulang QR di meja.',
+            ], 422);
+        }
+
+        $userId    = auth()->id();
+        $guestName = $userId ? auth()->user()->nama : trim((string) ($data['guest_name'] ?? ''));
+
+        if (! $userId && $guestName === '') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Nama pemesan wajib diisi untuk pesanan tanpa akun.',
+            ], 422);
+        }
+
+        [$lineItems, $realTotal, $error] = $this->buildLineItems($data['cart']);
+        if ($error) {
+            return response()->json(['success' => false, 'message' => $error], 422);
+        }
+
+        // Midtrans mewajibkan format email pada customer_details. Untuk tamu
+        // tanpa akun, kita buat placeholder yang unik per pesanan (bukan
+        // dipakai untuk mengirim apa pun) alih-alih menahan checkout.
+        $guestEmail = $userId
+            ? auth()->user()->email
+            : 'meja-' . $table->nomor . '-' . time() . '@kafetani.store';
+
+        return $this->createOrderAndCharge(
+            orderAttributes: [
+                'user_id'     => $userId,
+                'table_id'    => $table->id,
+                'type'        => 'cafe',
+                'source'      => 'online',
+                'guest_name'  => $userId ? null : $guestName,
+                'guest_phone' => $userId ? null : ($data['guest_phone'] ?? null),
+            ],
+            lineItems: $lineItems,
+            realTotal: $realTotal,
+            customerDetails: [
+                'first_name' => $guestName,
+                'email'      => $guestEmail,
+                'phone'      => $data['guest_phone'] ?? null,
+            ],
+        );
+    }
+
+    /**
+     * Validasi & normalisasi isi keranjang jadi baris pesanan siap simpan.
+     * Dipakai bersama oleh store() (checkout marketplace/menu terautentikasi)
+     * dan storeGuest() (checkout QR meja) supaya logikanya tidak dobel.
+     *
+     * @return array{0: array, 1: int, 2: string|null} [$lineItems, $realTotal, $errorMessage]
+     */
+    private function buildLineItems(array $cart): array
+    {
         // Kumpulkan semua ID numerik untuk cek DB sekaligus
         $numericIds = collect($cart)
             ->filter(fn($i) => is_numeric($i['id']))
@@ -132,15 +231,24 @@ class OrderController extends Controller
         }
 
         if (empty($lineItems)) {
-            return response()->json(['success' => false, 'message' => 'Tidak ada produk valid dalam pesanan.'], 422);
+            return [[], 0, 'Tidak ada produk valid dalam pesanan.'];
         }
 
         $realTotal += 2000; // biaya layanan
 
+        return [$lineItems, $realTotal, null];
+    }
+
+    /**
+     * Simpan order + item (dengan lock stok) lalu buat transaksi Midtrans
+     * Snap. Dipakai bersama oleh store() dan storeGuest().
+     */
+    private function createOrderAndCharge(array $orderAttributes, array $lineItems, int $realTotal, array $customerDetails): JsonResponse
+    {
         // Konfigurasi Midtrans sudah diatur secara global di AppServiceProvider::boot()
 
         try {
-            $order = DB::transaction(function () use ($userId, $realTotal, $lineItems) {
+            $order = DB::transaction(function () use ($orderAttributes, $realTotal, $lineItems) {
                 // Kunci baris produk & validasi kecukupan stok sebelum transaksi disimpan
                 // (mencegah race condition antara cek stok dan pengurangan stok).
                 $insufficient = [];
@@ -164,12 +272,9 @@ class OrderController extends Controller
                 }
 
                 // Status awal adalah pending_payment karena diintegrasikan dengan Payment Gateway
-                $order = Order::create([
-                    'user_id' => $userId,
-                    'total'   => $realTotal,
-                    'type'    => 'mixed',
-                    'source'  => 'online',
-                    'status'  => 'pending_payment',
+                $order = Order::create($orderAttributes + [
+                    'total'  => $realTotal,
+                    'status' => 'pending_payment',
                 ]);
 
                 foreach ($lineItems as $li) {
@@ -198,7 +303,7 @@ class OrderController extends Controller
                     'name'     => substr($li['name'], 0, 50),
                 ];
             }
-            
+
             // Tambahkan biaya layanan ke item details Midtrans
             $midtransItems[] = [
                 'id'       => 'service_fee',
@@ -219,14 +324,9 @@ class OrderController extends Controller
                 'gross_amount' => $realTotal,
             ];
 
-            $customerDetails = [
-                'first_name' => auth()->user()->nama,
-                'email'      => auth()->user()->email,
-            ];
-
             $params = [
                 'transaction_details' => $transactionDetails,
-                'customer_details'    => $customerDetails,
+                'customer_details'    => array_filter($customerDetails, fn($v) => $v !== null && $v !== ''),
                 'item_details'        => $midtransItems,
             ];
 

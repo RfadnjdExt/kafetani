@@ -39,9 +39,15 @@
       <td style="font-weight:500;">{{ $order->id }}</td>
       <td>
         <div style="font-weight:500;font-size:.88rem;">
-          {{ $order->customer_name ?? $order->user->nama ?? 'Tamu' }}
+          {{ $order->customer_name ?? $order->guest_name ?? $order->user->nama ?? 'Tamu' }}
         </div>
-        <div style="font-size:.75rem;color:var(--text-light);">{{ $order->user->email ?? '' }}</div>
+        <div style="font-size:.75rem;color:var(--text-light);">
+          @if($order->table)
+            Meja {{ $order->table->nomor }}
+          @else
+            {{ $order->user->email ?? '' }}
+          @endif
+        </div>
       </td>
       <td>
         <span class="badge badge-{{ $order->source }}">{{ $order->source }}</span>

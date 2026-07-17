@@ -101,7 +101,18 @@ async function checkout() {
     showToast("Keranjang kosong!");
     return;
   }
-  
+
+  const pageMenu = document.getElementById('page-menu');
+  const meja = pageMenu ? pageMenu.dataset.meja : '';
+
+  if (meja) {
+    return checkoutMeja(meja, pageMenu.dataset.loggedIn === '1');
+  }
+
+  return checkoutAccount();
+}
+
+async function checkoutAccount() {
   const sub = cart.reduce((s,c) => s + c.price * c.qty, 0);
   const total = sub + 2000;
 
@@ -127,37 +138,76 @@ async function checkout() {
     }
 
     const result = await response.json();
-    if (result.success && result.snap_token) {
-      closeCart();
-      // Buka popup Midtrans Snap
-      window.snap.pay(result.snap_token, {
-        onSuccess: function (paymentResult) {
-          cart = [];
-          saveCart();
-          updateCartBadge();
-          document.getElementById('order-success').classList.add('show');
-        },
-        onPending: function (paymentResult) {
-          showToast("Menunggu pembayaran Anda. Silakan selesaikan pembayaran.");
-          cart = [];
-          saveCart();
-          updateCartBadge();
-        },
-        onError: function (paymentResult) {
-          showToast("Pembayaran gagal: " + (paymentResult.status_message || "Terjadi kesalahan"));
-        },
-        onClose: function () {
-          showToast("Anda menutup halaman pembayaran sebelum menyelesaikannya.");
-        }
-      });
-    } else {
-      showToast(result.message || "Gagal membuat pesanan.");
-      if (result.message && result.message.toLowerCase().includes("login")) {
-          setTimeout(() => window.location.href = '/login', 1500);
-      }
-    }
+    handleCheckoutResult(result);
   } catch (error) {
     showToast("Kesalahan jaringan: " + error.message);
+  }
+}
+
+// Checkout untuk pemesanan mandiri via QR meja (SRS 3.4.1) — tidak butuh
+// login. Kalau belum login, minta nama pemesan dulu supaya kasir tahu
+// pesanan itu punya siapa.
+async function checkoutMeja(meja, isLoggedIn) {
+  let guestName = '';
+  if (!isLoggedIn) {
+    guestName = (window.prompt('Atas nama siapa pesanan ini? (untuk dipanggil kasir)') || '').trim();
+    if (!guestName) {
+      showToast('Nama pemesan wajib diisi.');
+      return;
+    }
+  }
+
+  const sub = cart.reduce((s,c) => s + c.price * c.qty, 0);
+  const total = sub + 2000;
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+  try {
+    const response = await fetch('/api/orders/guest', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        ...(csrfToken ? { 'X-CSRF-TOKEN': csrfToken } : {})
+      },
+      body: JSON.stringify({ cart, total, meja, guest_name: guestName })
+    });
+
+    const result = await response.json();
+    handleCheckoutResult(result);
+  } catch (error) {
+    showToast("Kesalahan jaringan: " + error.message);
+  }
+}
+
+function handleCheckoutResult(result) {
+  if (result.success && result.snap_token) {
+    closeCart();
+    // Buka popup Midtrans Snap
+    window.snap.pay(result.snap_token, {
+      onSuccess: function (paymentResult) {
+        cart = [];
+        saveCart();
+        updateCartBadge();
+        document.getElementById('order-success').classList.add('show');
+      },
+      onPending: function (paymentResult) {
+        showToast("Menunggu pembayaran Anda. Silakan selesaikan pembayaran.");
+        cart = [];
+        saveCart();
+        updateCartBadge();
+      },
+      onError: function (paymentResult) {
+        showToast("Pembayaran gagal: " + (paymentResult.status_message || "Terjadi kesalahan"));
+      },
+      onClose: function () {
+        showToast("Anda menutup halaman pembayaran sebelum menyelesaikannya.");
+      }
+    });
+  } else {
+    showToast(result.message || "Gagal membuat pesanan.");
+    if (result.message && result.message.toLowerCase().includes("login")) {
+        setTimeout(() => window.location.href = '/login', 1500);
+    }
   }
 }
 

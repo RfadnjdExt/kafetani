@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\FarmerController;
 use App\Http\Controllers\Admin\KasirController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Petani\PetaniController;
 use App\Http\Controllers\Api\OrderController as ApiOrderController;
 use App\Http\Controllers\Api\MidtransController;
@@ -58,6 +59,13 @@ Route::post('/api/orders', [ApiOrderController::class, 'store'])
      ->middleware('auth')
      ->name('api.orders.store');
 
+// Checkout tamu (guest) khusus pemesanan mandiri via QR meja — sengaja
+// TIDAK diberi middleware 'auth' karena inti fiturnya adalah bisa pesan
+// tanpa login. Tetap masuk grup 'web' (CSRF + session tetap aktif) supaya
+// kalau pelanggan kebetulan sedang login, order otomatis tertaut ke akunnya.
+Route::post('/api/orders/guest', [ApiOrderController::class, 'storeGuest'])
+     ->name('api.orders.storeGuest');
+
 // ─── Admin (hanya admin) ───────────────────────────────────────────────────────
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->group(function () {
     Route::get('/',          [DashboardController::class, 'index'])->name('dashboard');
@@ -87,6 +95,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
 
     Route::get('/orders',                [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+    // Manajemen Meja & QR untuk pemesanan mandiri (SRS 3.4.1)
+    Route::get('/meja',                [TableController::class, 'index'])->name('tables.index');
+    Route::post('/meja',               [TableController::class, 'store'])->name('tables.store');
+    Route::post('/meja/{table}/toggle', [TableController::class, 'toggle'])->name('tables.toggle');
+    Route::delete('/meja/{table}',     [TableController::class, 'destroy'])->name('tables.destroy');
+    Route::get('/meja/{table}/qr',     [TableController::class, 'qr'])->name('tables.qr');
 });
 
 // ─── Kasir (admin dan kasir) ───────────────────────────────────────────────────
@@ -111,6 +126,7 @@ Route::prefix('petani')->middleware(['auth', 'role:petani'])->name('petani.')->g
 // ─── Halaman Publik ────────────────────────────────────────────────────────────
 Route::get('/',                  [PublicController::class, 'home'])->name('home');
 Route::get('/menu',              [PublicController::class, 'menu'])->name('menu');
+Route::get('/meja/{nomor}',      [PublicController::class, 'menuMeja'])->name('public.meja');
 Route::get('/marketplace',       [PublicController::class, 'marketplace'])->name('marketplace');
 Route::get('/cara-pesan',        [PublicController::class, 'caraPersan'])->name('cara-pesan');
 Route::get('/tentang-kami',      [PublicController::class, 'tentangKami'])->name('tentang-kami');

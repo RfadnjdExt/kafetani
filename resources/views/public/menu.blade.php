@@ -6,13 +6,26 @@
 @endpush
 
 @section('content')
-<div class="page" id="page-menu">
+<div class="page" id="page-menu"
+     data-meja="{{ $table->nomor ?? '' }}"
+     data-logged-in="{{ auth()->check() ? '1' : '0' }}">
 
+  @isset($table)
+    <div class="page-header" style="padding-bottom:.5rem;">
+      <div class="page-header-label" style="display:flex;align-items:center;gap:.5rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Pesan dari Meja {{ $table->nomor }}{{ $table->keterangan ? ' · ' . $table->keterangan : '' }}
+      </div>
+      <h1 class="page-header-title">Menu Kafe</h1>
+      <p class="page-header-sub">Pilih menu, masukkan keranjang, lalu checkout langsung — tanpa perlu login.</p>
+    </div>
+  @else
   <div class="page-header">
     <div class="page-header-label">Kafetani · Menu Kafe</div>
     <h1 class="page-header-title">Menu Kafe</h1>
     <p class="page-header-sub">Minuman, pastry, dan camilan buatan sendiri dari bahan lokal</p>
   </div>
+  @endisset
 
   <div class="filter-bar">
     @foreach($categories as $i => $cat)

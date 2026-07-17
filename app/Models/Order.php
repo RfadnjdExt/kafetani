@@ -10,11 +10,14 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'table_id',
         'midtrans_order_id',
         'total',
         'type',
         'source',
         'customer_name',
+        'guest_name',
+        'guest_phone',
         'status',
         'snap_token',
         'payment_type',
@@ -35,6 +38,24 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relasi: order dari pemesanan mandiri via QR di meja tertentu (nullable
+     * — order dari marketplace / kasir tidak terikat meja).
+     */
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
+
+    /**
+     * Helper: nama pemesan untuk ditampilkan — pakai nama akun kalau order
+     * dari user terdaftar, atau nama tamu kalau guest order via QR meja.
+     */
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->user?->nama ?? $this->guest_name ?? $this->customer_name ?? 'Tamu';
     }
 
     /**
