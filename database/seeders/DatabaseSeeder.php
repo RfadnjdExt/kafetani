@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insertOrIgnore([
             [
                 'nama'     => 'Administrator',
-                'email'    => 'admin@gmail.com',
+                'email'    => 'admin@kafetani.store',
                 'password' => Hash::make('kafetani2025'),
                 'role'     => 'admin',
             ],
             [
                 'nama'     => 'Kasir Utama',
-                'email'    => 'kasir@kafetani.com',
+                'email'    => 'kasir@kafetani.store',
                 'password' => Hash::make('kasir123'),
                 'role'     => 'kasir',
             ],
@@ -31,19 +31,19 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insertOrIgnore([
             [
                 'nama'     => 'Andi Saputra',
-                'email'    => 'andi@pelanggan.com',
+                'email'    => 'andi@kafetani.store',
                 'password' => Hash::make('pelanggan123'),
                 'role'     => 'user',
             ],
             [
                 'nama'     => 'Siti Rahma',
-                'email'    => 'siti@pelanggan.com',
+                'email'    => 'siti@kafetani.store',
                 'password' => Hash::make('pelanggan123'),
                 'role'     => 'user',
             ],
             [
                 'nama'     => 'Dedi Kurniawan',
-                'email'    => 'dedi@pelanggan.com',
+                'email'    => 'dedi@kafetani.store',
                 'password' => Hash::make('pelanggan123'),
                 'role'     => 'user',
             ],
@@ -90,11 +90,11 @@ class DatabaseSeeder extends Seeder
 
         // Petani (akun contoh untuk demo alur registrasi & approval, FR-19/FR-23).
         // Dihubungkan ke farmer 'Pak Budi' yang sudah ada di atas.
-        $petaniUser = DB::table('users')->where('email', 'petani@kafetani.com')->first();
+        $petaniUser = DB::table('users')->where('email', 'petani@kafetani.store')->first();
 
         $petaniUserId = $petaniUser->id ?? DB::table('users')->insertGetId([
             'nama'     => 'Pak Budi',
-            'email'    => 'petani@kafetani.com',
+            'email'    => 'petani@kafetani.store',
             'password' => Hash::make('PetaniGayo#2026'),
             'role'     => 'petani',
         ]);

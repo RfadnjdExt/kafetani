@@ -30,10 +30,10 @@ php artisan serve
 
 Buka **http://127.0.0.1:8000** di browser. `--seed` di atas otomatis mengisi kategori, petani, produk contoh, dan dua akun berikut:
 
-| Role  | Email               | Password     |
-|-------|---------------------|--------------|
-| Admin | admin@gmail.com     | kafetani2025 |
-| Kasir | kasir@kafetani.com  | kasir123     |
+| Role  | Email                 | Password     |
+|-------|-----------------------|--------------|
+| Admin | admin@kafetani.store  | kafetani2025 |
+| Kasir | kasir@kafetani.store  | kasir123     |
 
 **Pakai MySQL?** Ganti baris berikut di `.env` sebelum langkah migrasi:
 ```env
