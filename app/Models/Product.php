@@ -99,7 +99,7 @@ class Product extends Model
     public function getGambarUrlAttribute(): string
     {
         return $this->gambar
-            ? asset('img/products/' . $this->gambar)
+            ? asset('products/' . $this->gambar)
             : '';
     }
 

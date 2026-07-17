@@ -145,10 +145,10 @@ class PetaniController extends Controller
         if ($request->hasFile('gambar')) {
             $ext            = $request->file('gambar')->getClientOriginalExtension();
             $data['gambar'] = uniqid('prod_', true) . '.' . strtolower($ext);
-            $request->file('gambar')->move(public_path('img/products'), $data['gambar']);
+            $request->file('gambar')->move(public_path('products'), $data['gambar']);
 
             if ($existing?->gambar) {
-                @unlink(public_path('img/products/' . $existing->gambar));
+                @unlink(public_path('products/' . $existing->gambar));
             }
         } else {
             $data['gambar'] = $existing->gambar ?? null;
@@ -175,7 +175,7 @@ class PetaniController extends Controller
         $product = Product::where('id_product', $id)->where('farmer_id', $farmer->id)->firstOrFail();
 
         if ($product->gambar) {
-            @unlink(public_path('img/products/' . $product->gambar));
+            @unlink(public_path('products/' . $product->gambar));
         }
 
         $product->delete();

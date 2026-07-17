@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
             'category_id'   => $this->category_id,
             'category_name' => $this->whenLoaded('category', fn () => $this->category?->name),
             'gambar_url'    => $this->gambar
-                ? $request->getSchemeAndHttpHost() . '/img/products/' . $this->gambar
+                ? $request->getSchemeAndHttpHost() . '/products/' . $this->gambar
                 : null,
         ];
     }

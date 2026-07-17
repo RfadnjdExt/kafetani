@@ -54,7 +54,7 @@ class ProductController extends Controller
     public function destroy(Product $product): JsonResponse
     {
         if ($product->gambar) {
-            @unlink(public_path('img/products/' . $product->gambar));
+            @unlink(public_path('products/' . $product->gambar));
         }
 
         $product->delete();
@@ -84,10 +84,10 @@ class ProductController extends Controller
         if ($request->hasFile('gambar')) {
             $ext      = $request->file('gambar')->getClientOriginalExtension();
             $filename = uniqid('prod_', true) . '.' . strtolower($ext);
-            $request->file('gambar')->move(public_path('img/products'), $filename);
+            $request->file('gambar')->move(public_path('products'), $filename);
 
             if ($product && $product->gambar) {
-                @unlink(public_path('img/products/' . $product->gambar));
+                @unlink(public_path('products/' . $product->gambar));
             }
 
             $data['gambar'] = $filename;

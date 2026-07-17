@@ -61,12 +61,12 @@ class ProductController extends Controller
         if ($request->hasFile('gambar')) {
             $ext      = $request->file('gambar')->getClientOriginalExtension();
             $filename = uniqid('prod_', true) . '.' . strtolower($ext);
-            $request->file('gambar')->move(public_path('img/products'), $filename);
+            $request->file('gambar')->move(public_path('products'), $filename);
 
             // Hapus gambar lama jika edit
             if ($id) {
                 $old = Product::find($id)?->gambar;
-                if ($old) @unlink(public_path('img/products/' . $old));
+                if ($old) @unlink(public_path('products/' . $old));
             }
 
             $data['gambar'] = $filename;
@@ -115,7 +115,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         if ($product->gambar) {
-            @unlink(public_path('img/products/' . $product->gambar));
+            @unlink(public_path('products/' . $product->gambar));
         }
 
         $product->delete();

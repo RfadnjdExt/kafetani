@@ -18,7 +18,7 @@ class OrderItemResource extends JsonResource
             'nama_produk' => $this->whenLoaded('product', fn () => $this->product?->nama_produk),
             'gambar_url'  => $this->whenLoaded('product', function () use ($request) {
                 return $this->product?->gambar
-                    ? $request->getSchemeAndHttpHost() . '/img/products/' . $this->product->gambar
+                    ? $request->getSchemeAndHttpHost() . '/products/' . $this->product->gambar
                     : null;
             }),
             'quantity'    => $this->quantity,
