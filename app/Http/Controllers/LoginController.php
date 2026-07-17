@@ -33,9 +33,10 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             $fallback = match (Auth::user()->role) {
-                'admin', 'kasir' => route('admin.dashboard'),
-                'petani'         => route('petani.dashboard'),
-                default          => route('home'),
+                'admin'  => route('admin.dashboard'),
+                'kasir'  => route('admin.kasir'),
+                'petani' => route('petani.dashboard'),
+                default  => route('home'),
             };
 
             return redirect()->intended($fallback);
