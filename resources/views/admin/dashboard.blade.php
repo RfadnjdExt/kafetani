@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('style-dashboard.css') }}">
+<link rel="stylesheet" href="{{ asset('style-dashboard.css') }}?v={{ @filemtime(public_path('style-dashboard.css')) ?: '1' }}">
 @endpush
 
 @section('content')
