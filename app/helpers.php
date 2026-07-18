@@ -18,7 +18,7 @@ if (! function_exists('asset_v')) {
      * Falls back to the plain asset() URL (no query string) if the file
      * cannot be found, so it never breaks a page if a path is wrong.
      */
-    function asset_v(string $path, bool $secure = null): string
+    function asset_v(string $path, ?bool $secure = null): string
     {
         $fullPath = public_path(ltrim($path, '/'));
 
