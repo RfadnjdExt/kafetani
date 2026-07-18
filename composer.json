@@ -28,6 +28,9 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
+        "exclude-from-classmap": [
+            "app/Support/QrCode/qrcode.php"
+        ],
         "files": [
             "app/helpers.php"
         ]
